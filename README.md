@@ -1,6 +1,8 @@
 # Concord-API2
 
-![concord-logo](https://github.com/user-attachments/assets/3bb5acdc-81f5-46da-aaf5-e22a58e1978f)
+<div>
+    <img src="./IMG/concord-logo.png" style="width:200px; height:200px;" alt="logo"/>
+</div>
 
 ## 📚 Sobre o Projeto
 
