@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="concord.concord.controllers.ControllerCadAula">
+    <center>
+        <TableView fx:id="table">
+            <columns>
+                <TableColumn text="Nome da Aula" fx:id="classNameCol" />
+                <TableColumn text="Professor" fx:id="professorCol" />
+                <TableColumn text="Curso" fx:id="courseCol" />
+                <TableColumn fx:id="dayCol" text="Dia" />
+                <TableColumn text="Horário" fx:id="timeCol" />
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Adicionar Aula" onAction="#showAddDialog" />
+            <Button text="Editar Aula" onAction="#showEditDialog" />
+            <Button text="Excluir Aula" onAction="#deleteSelectedClass" />
+        </HBox>
+    </bottom>
+</BorderPane>
