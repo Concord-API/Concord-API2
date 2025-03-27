@@ -36,3 +36,12 @@ curso pode definir o posicionamento das aulas de forma diferente.
   
 ## 👥 Integrantes do Grupo
 
+<div align="center">
+ <table>
+   <tr>
+    <td align="center">
+     <img scr=".IMG/fabiano.jpg" width="100px;" alt="integrante 1"/>
+     <br />
+     <b>Fabiano Ribeiro</b>
+     </td>
+
