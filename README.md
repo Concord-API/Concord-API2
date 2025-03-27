@@ -6,7 +6,7 @@
 
 ## 📚 Sobre o Projeto
 
-O **Concord-API2** é um projeto voltado para a criação de um **Gerenciador de Horários de Aula** 
+O **Concord-API2** é um projeto voltado para a criação de um **Gerenciador de Horários de Aula**.
 
 ## 🎯 Objetivo
 
@@ -28,20 +28,13 @@ curso pode definir o posicionamento das aulas de forma diferente.
 
 ## 🚀 Funcionalidades Atuais
 
--  ?
+-  Tela do programa Gerenciador de Horários de Aula.
 
 ## 🛠️ Tecnologias Utilizadas
 
--  ?
+-  JavaFX, IntelliJ, Maven, Scene builder.
   
 ## 👥 Integrantes do Grupo
 
-<div align="center">
- <table>
-   <tr>
-    <td align="center">
-     <img scr=".IMG/fabiano.jpg" width="100px;" alt="integrante 1"/>
-     <br />
-     <b>Fabiano Ribeiro</b>
-     </td>
+
 
