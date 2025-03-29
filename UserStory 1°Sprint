@@ -9,7 +9,7 @@ Gerenciamento da Grade Horária - User Story
 
 2. Benefícios 
 
-Evita sobreposição de horários para professores e disciplinas. 
+Evita sobreposição de horários para professores. 
 
 Otimiza a alocação das disciplinas, reduzindo erros manuais. 
 
@@ -20,13 +20,8 @@ Melhora a organização e facilita o acesso à grade horária.
 
 3. Passo a Passo 
 
-3.1 Cadastro de Informações 
 
-Inserir cursos disponíveis no sistema. 
-
-Cadastrar professores e associá-los às disciplinas. 
-
-3.2 Montagem da Grade Horária 
+3.1 Montagem da Grade Horária 
 
 Distribuir a carga horária das disciplinas ao longo da semana. 
 
@@ -34,7 +29,7 @@ Garantir que professores não tenham horários sobrepostos.
 
 Permitir ajustes manuais conforme necessário. 
 
-3.3 Revisão e Confirmação 
+3.2 Revisão e Confirmação 
 
 O coodernador pode visualizar e editar a grade antes da confirmação. 
 
@@ -43,7 +38,7 @@ Após a validação, a grade fica disponível para consulta pelos envolvidos.
 
 4. Condições para Conclusão 
 
-O coodernador modificar cursos, disciplinas e professores. 
+O coodernador modifica cursos, disciplinas e professores. 
 
 O sistema impede que um professor tenha mais de uma aula no mesmo horário. 
 
@@ -54,8 +49,6 @@ A grade pode ser visualizada e ajustada antes da confirmação.
 
 Carga Horária Semanal: Cada disciplina deve ser alocada respeitando sua quantidade de aulas obrigatórias. 
 
-Sem Conflitos: O sistema deve impedir que um professor seja alocado em mais de uma disciplina ao mesmo tempo. 
-
-Flexibilidade: Cada curso pode definir sua própria estrutura de horários, mesmo com a hora-aula padrão de 50 minutos. 
+Sem Conflitos: O sistema deve impedir que um professor seja alocado em mais de uma disciplina ao mesmo tempo.
 
 Validação Automática: Antes da confirmação da grade, o sistema deve alertar sobre erros ou inconsistências. 
