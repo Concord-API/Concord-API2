@@ -141,4 +141,20 @@ public class Database {
         return false;
     }
 
+    public boolean existeConflitoDeHorario(String professor, String dia, String horario, int idAtual) {
+        String sql = "SELECT COUNT(*) FROM aulas WHERE professor = ? AND day = ? AND time = ? AND id <> ?";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, professor);
+            stmt.setString(2, dia);
+            stmt.setString(3, horario);
+            stmt.setInt(4, idAtual); // Ignorar a própria aula no check
+            ResultSet rs = stmt.executeQuery();
+            return rs.next() && rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 }

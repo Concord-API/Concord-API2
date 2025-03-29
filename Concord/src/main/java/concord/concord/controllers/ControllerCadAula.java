@@ -180,6 +180,10 @@ public class ControllerCadAula {
             Dialog<Aula> dialog = createClassDialog("Editar Aula", selected);
             Optional<Aula> result = dialog.showAndWait();
             result.ifPresent(updated -> {
+                if (!validarAula(updated, selected.getId())) {
+                    mostrarAlerta("Erro", "Conflito de Horário", "Este professor já tem uma aula neste horário e dia!");
+                    return;
+                }
                 database.editarAula(selected.getId(), updated.getClassName(), updated.getProfessor(), updated.getCourse(), updated.getDay(), updated.getTime());
                 selected.setClassName(updated.getClassName());
                 selected.setProfessor(updated.getProfessor());
@@ -189,6 +193,10 @@ public class ControllerCadAula {
                 table.refresh();
             });
         }
+    }
+
+    private boolean validarAula(Aula aula, int idAtual) {
+        return !database.existeConflitoDeHorario(aula.getProfessor(), aula.getDay(), aula.getTime(), idAtual);
     }
 
     @FXML
@@ -211,16 +219,16 @@ public class ControllerCadAula {
     private Dialog<Aula> createClassDialog(String title, Aula existing) {
         Dialog<Aula> dialog = new Dialog<>();
         dialog.setTitle(title);
-
+    
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
+    
         ComboBox<String> classNameComboBox = new ComboBox<>(aulas);
         ComboBox<String> professorComboBox = new ComboBox<>(professores);
         ComboBox<String> courseComboBox = new ComboBox<>(cursos);
         ComboBox<String> dayComboBox = new ComboBox<>(dias);
         ComboBox<String> timeComboBox = new ComboBox<>(horarios);
-
+    
         if (existing != null) {
             classNameComboBox.setValue(existing.getClassName());
             professorComboBox.setValue(existing.getProfessor());
@@ -228,23 +236,32 @@ public class ControllerCadAula {
             dayComboBox.setValue(existing.getDay());
             timeComboBox.setValue(existing.getTime());
         }
-
+    
         dialogPane.setContent(new VBox(10,
                 new Label("Matéria:"), classNameComboBox,
                 new Label("Professor (a):"), professorComboBox,
                 new Label("Curso:"), courseComboBox,
                 new Label("Dia:"), dayComboBox,
                 new Label("Horário:"), timeComboBox
-
         ));
-
+    
         dialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
-                return new Aula(classNameComboBox.getValue(), professorComboBox.getValue(), courseComboBox.getValue(), dayComboBox.getValue(), timeComboBox.getValue());
+                
+                if (classNameComboBox.getValue() == null || professorComboBox.getValue() == null || 
+                    courseComboBox.getValue() == null || dayComboBox.getValue() == null || 
+                    timeComboBox.getValue() == null) {
+                    
+                    mostrarAlerta("Erro", "Campos Obrigatórios", "Por favor, preencha todos os campos!");
+                    return null; 
+                }
+                
+                return new Aula(classNameComboBox.getValue(), professorComboBox.getValue(), 
+                                courseComboBox.getValue(), dayComboBox.getValue(), timeComboBox.getValue());
             }
             return null;
         });
-
+    
         return dialog;
     }
 }
