@@ -1,14 +1,21 @@
 package concord.concord.controllers;
 
+import concord.concord.DAO.AulaDAO;
+
+
+import concord.concord.Database;
 import concord.concord.models.Aula;
+import concord.concord.models.Professor;
+import concord.concord.models.Curso;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
-import concord.concord.Database;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,39 +34,10 @@ public class ControllerCadAula {
     @FXML
     private TableColumn<Aula, String> courseCol;
 
-    private ObservableList<Aula> classList = FXCollections.observableArrayList();
-    private final Database database = new Database();
-    private final ObservableList<String> professores = FXCollections.observableArrayList(
-            "Adriana da Silva Jacinto", "Adilson Lucimar Simões", "Alfred Makoto Kabayama",
-            "Ana Cecília Rodrigues Medeiros", "Ana Maria Pereira", "Andrea Marques de Carvalho",
-            "Antônio Egydio São Thiago Graça", "Antônio Josivaldo Dantas Filho", "Antônio Wellington Sales Rios",
-            "Arlindo Strottmann", "Bruno Peruchi Trevisan", "Carlos Augusto Lombardi Garcia",
-            "Carlos Eduardo Bastos", "Carlos Henrique Loureiro Feichas", "Carlos Lineu de Faria e Alves",
-            "Cássia Cristina Bordini Cintra", "Celso de Oliveira", "Cícero Soares da Silva",
-            "Cláudio Etelvino de Lima", "Danielle Cristina de Morais Amorim", "Dawilmar Guimarães de Araújo",
-            "Dercy Felix da Silva", "Diogo Branquinho Ramos", "Edmar de Queiroz Figueiredo",
-            "Eduardo Clemente Medeiros", "Eduardo de Castro Faustino Coelho", "Eduardo Sakaue",
-            "Eliane Penha Mergulhão Dias", "Emanuel Mineda Carneiro", "Érico Luciano Pagotto",
-            "Fabiana Eloisa Passador", "Fabiano Sabha Walczak", "Fábio José Santos de Oliveira",
-            "Fábio Luciano Pagotto", "Fernando Masanori Ashikaga", "Geraldo José Lombardi de Souza",
-            "Gerson Carlos Favalli", "Gerson da Penha Neto", "Giuliano Araujo Bertoti",
-            "Guaraci Lima de Moraes", "Heide Heloise Bernardi", "Herculano Camargo Ortiz",
-            "Hudson Alberto Bode", "Jean Carlos Lourenço Costa", "Joares Lidovino dos Reis",
-            "Jorge Tadao Matsushima", "José Jaetis Rosario", "José Walmir Gonçalves Duque",
-            "Juliana Forin Pasquini Martinez", "Leonidas Lopes de Melo", "Lise Virgínia Vieira de Azevedo",
-            "Lucas Giovanetti", "Lucas Gonçalves Nadalete", "Luiz Alberto Nolasco Fonseca",
-            "Luiz Antonio Tozi", "Manoel Roman Filho", "Marcos Allan Ferreira Gonçalves",
-            "Marcos da Silva e Souza", "Marcos Paulo Lobo de Candia", "Marluce Gavião Sacramento Dias",
-            "Martin Lugones", "Marcus Vinícius do Nascimento", "Maria Aparecida Miranda de Souza",
-            "Maria Goreti Lopes Cepinho", "Nanci de Oliveira", "Newton Eizo Yamada",
-            "Nilo Castro dos Santos", "Nilo Jeronimo Vieira", "Reinaldo Fagundes dos Santos",
-            "Reinaldo Gen Ichiro Arakaki", "Reinaldo Viveiros Carraro", "Renato Galvão da Silveira Mussi",
-            "Renata Cristiane Fusverk da Silva", "Rita de Cássia M. Sales Contini", "Rodrigo Elias Pereira",
-            "Rogério Benedito de Andrade", "Roque Antonio de Moura", "Rubens Barreto da Silva",
-            "Samuel Martin Maresti", "Santiago Martin Lugones", "Sanzara Nhiaaia Jardim Costa Hassmann",
-            "Teresinha de Fátima Nogueira", "Vera Lúcia Monteiro", "Viviane Ribeiro de Siqueira",
-            "Wagner Luiz de Oliveira"
-    );
+    private final ObservableList<Aula> classList = FXCollections.observableArrayList();
+
+    private final AulaDAO aulaDAO = new AulaDAO();
+
 
 
     private final ObservableList<String> aulas = FXCollections.observableArrayList(
@@ -129,8 +107,12 @@ public class ControllerCadAula {
 
     private final ObservableList<String> horarios = FXCollections.observableArrayList("07:10", "08:00", "09:15", "10:05", "10:55", "11:45", "18:45", "19:35", "20:35", "21:25", "22:15");
     private final ObservableList<String> dias = FXCollections.observableArrayList("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado");
-    private final ObservableList<String> cursos = FXCollections.observableArrayList("Análise e Desenvolvimento de Sitemas", "Banco de Dados", "Desenvolvimento de Software Multiplataforma", "Gestão de Produção Industrial", "Logística(Manhã)", "Logística(Noite)", "Manufatura Avançada", "Manutenção de Aeronaves", "Projetos de Estruturas Aeronáuticas");
 
+    private final ProfessorController professorController = new ProfessorController();
+    private final CursoController cursoController = new CursoController();
+
+    private ObservableList<Professor> professores = FXCollections.observableArrayList();
+    private ObservableList<Curso> cursos = FXCollections.observableArrayList();
 
     private void mostrarAlerta(String titulo, String cabecalho, String mensagem) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -142,17 +124,21 @@ public class ControllerCadAula {
 
     @FXML
     public void initialize() {
-        database.conectar();
-        database.criarTabela();
-
         classNameCol.setCellValueFactory(new PropertyValueFactory<>("className"));
         professorCol.setCellValueFactory(new PropertyValueFactory<>("professor"));
         courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
         dayCol.setCellValueFactory(new PropertyValueFactory<>("day"));
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
 
+        carregarProfessoresECursos();
         carregarAulasDoBanco();
     }
+
+    private void carregarProfessoresECursos() {
+        professores.setAll(professorController.buscarTodos());
+        cursos.setAll(cursoController.buscarCursos());
+    }
+
 
     @FXML
     public void showAddDialog() {
@@ -160,13 +146,12 @@ public class ControllerCadAula {
         Optional<Aula> result = dialog.showAndWait();
 
         result.ifPresent(aula -> {
-
-            boolean professorOcupado = database.professorAula(aula.getProfessor(), aula.getDay(), aula.getTime());
+            boolean professorOcupado = aulaDAO.professorAula(aula.getProfessor(), aula.getDay(), aula.getTime());
 
             if (professorOcupado) {
                 mostrarAlerta("Erro", "Horário Indisponível", "O professor já tem uma aula nesse horário!");
             } else {
-                database.adicionarAula(aula.getClassName(), aula.getProfessor(), aula.getCourse(), aula.getDay(), aula.getTime());
+                aulaDAO.adicionarAula(aula);
                 classList.add(aula);
                 table.refresh();
             }
@@ -184,7 +169,7 @@ public class ControllerCadAula {
                     mostrarAlerta("Erro", "Conflito de Horário", "Este professor já tem uma aula neste horário e dia!");
                     return;
                 }
-                database.editarAula(selected.getId(), updated.getClassName(), updated.getProfessor(), updated.getCourse(), updated.getDay(), updated.getTime());
+                aulaDAO.editarAula(selected.getId(), updated);
                 selected.setClassName(updated.getClassName());
                 selected.setProfessor(updated.getProfessor());
                 selected.setCourse(updated.getCourse());
@@ -196,14 +181,15 @@ public class ControllerCadAula {
     }
 
     private boolean validarAula(Aula aula, int idAtual) {
-        return !database.existeConflitoDeHorario(aula.getProfessor(), aula.getDay(), aula.getTime(), idAtual);
+        return !aulaDAO.existeConflitoDeHorario(aula.getProfessor(), aula.getDay(), aula.getTime(), idAtual);
     }
+
 
     @FXML
     public void deleteSelectedClass() {
         Aula selected = table.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            database.deletarAula(selected.getId());
+            aulaDAO.deletarAula(selected.getId());
             classList.remove(selected);
             table.refresh();
         }
@@ -211,10 +197,11 @@ public class ControllerCadAula {
 
     private void carregarAulasDoBanco() {
         classList.clear();
-        List<Aula> aulas = database.buscarTodasAulas();
+        List<Aula> aulas = aulaDAO.buscarTodasAulas();
         classList.addAll(aulas);
         table.setItems(classList);
     }
+
 
     private Dialog<Aula> createClassDialog(String title, Aula existing) {
         Dialog<Aula> dialog = new Dialog<>();
@@ -224,8 +211,8 @@ public class ControllerCadAula {
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
     
         ComboBox<String> classNameComboBox = new ComboBox<>(aulas);
-        ComboBox<String> professorComboBox = new ComboBox<>(professores);
-        ComboBox<String> courseComboBox = new ComboBox<>(cursos);
+        ComboBox<Professor> professorComboBox = new ComboBox<>(professores);
+        ComboBox<Curso> courseComboBox = new ComboBox<>(cursos);
         ComboBox<String> dayComboBox = new ComboBox<>(dias);
         ComboBox<String> timeComboBox = new ComboBox<>(horarios);
     
@@ -256,7 +243,7 @@ public class ControllerCadAula {
                     return null; 
                 }
                 
-                return new Aula(classNameComboBox.getValue(), professorComboBox.getValue(), 
+                return new Aula(classNameComboBox.getValue(), professorComboBox.getValue(),
                                 courseComboBox.getValue(), dayComboBox.getValue(), timeComboBox.getValue());
             }
             return null;
@@ -264,4 +251,5 @@ public class ControllerCadAula {
     
         return dialog;
     }
+
 }

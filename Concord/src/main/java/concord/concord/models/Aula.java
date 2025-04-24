@@ -3,15 +3,15 @@ package concord.concord.models;
 public class Aula {
     private int id;
     private String className;
-    private String professor;
-    private String course;
+    private Professor professor;
+    private Curso course;
     private String day;
     private String time;
 
 
 
 
-    public Aula(String className, String professor,String course, String day, String time) {
+    public Aula(String className, Professor professor,Curso course, String day, String time) {
         this.className = className;
         this.professor = professor;
         this.time = time;
@@ -20,7 +20,7 @@ public class Aula {
     }
 
 
-    public Aula(int id, String className, String professor,String course, String day, String time) {
+    public Aula(int id, String className, Professor professor,Curso course, String day, String time) {
         this.id = id;
         this.className = className;
         this.professor = professor;
@@ -48,11 +48,11 @@ public class Aula {
         this.className = className;
     }
 
-    public String getProfessor() {
+    public Professor getProfessor() {
         return professor;
     }
 
-    public void setProfessor(String professor) {
+    public void setProfessor(Professor professor) {
         this.professor = professor;
     }
 
@@ -64,11 +64,11 @@ public class Aula {
         this.time = time;
     }
 
-    public String getCourse() {
+    public Curso getCourse() {
         return course;
     }
 
-    public void setCourse(String course) {
+    public void setCourse(Curso course) {
         this.course = course;
     }
 
