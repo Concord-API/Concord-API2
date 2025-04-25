@@ -8,27 +8,38 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="467.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="concord.concord.controllers.CursoController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="concord.concord.controllers.CursoController">
     <children>
-      <TextField alignment="CENTER" layoutY="405.0" prefHeight="31.0" prefWidth="704.0" text="Área do Coordenador">
+      <TextField alignment="CENTER" layoutY="648.0" prefHeight="40.0" prefWidth="1280.0" text="Área do Coordenador">
          <font>
-            <Font name="Arial" size="15.0" />
+            <Font name="Arial" size="20.0" />
          </font>
       </TextField>
-        <HBox layoutX="195.0" layoutY="442.0" prefHeight="31.0" prefWidth="315.0">
+        <HBox layoutY="692.0" prefHeight="27.0" prefWidth="1280.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Adicionar Curso" />
-                <Button alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Editar Curso" />
-                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Excluir Curso" />
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="426.0" text="Adicionar Curso">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
+                <Button alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="430.0" text="Editar Curso">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="426.0" text="Excluir Curso">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
             </children>
         </HBox>
-      <TableView prefHeight="408.0" prefWidth="704.0">
+      <TableView layoutY="-2.0" prefHeight="650.0" prefWidth="1280.0">
         <columns>
-          <TableColumn x:id="diciplinaCol" prefWidth="240.0" text="Curso" />
-          <TableColumn x:id="diciplinaCol" prefWidth="140.0" text="Aula" />
-            <TableColumn x:id="diciplinaCol" prefWidth="210.0" text="Professor (a)" />
-            <TableColumn x:id="diciplinaCol" prefWidth="50.0" text="Dia" />
-            <TableColumn x:id="diciplinaCol" prefWidth="65.0" text="Horário" />
+          <TableColumn prefWidth="275.0" text="Nome" />
+          <TableColumn prefWidth="91.0" text="Sigla" />
+            <TableColumn prefWidth="91.0" text="Duração" />
+            <TableColumn prefWidth="91.0" text="Modalidade" />
+            <TableColumn prefWidth="91.0" text="Turno" />
+            <TableColumn prefWidth="275.0" text="Descrição" />
+            <TableColumn prefWidth="365.0" text="Coordenador" />
         </columns>
       </TableView>
     </children>

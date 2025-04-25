@@ -1,30 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="concord.concord.controllers.ProfessorController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="concord.concord.controllers.ProfessorController">
     <children>
-        <HBox layoutX="100.0" layoutY="344.0" prefHeight="26.0" prefWidth="420.0">
+      <TextField alignment="CENTER" layoutY="648.0" prefHeight="40.0" prefWidth="1280.0" text="Área do Coordenador">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </TextField>
+        <HBox layoutY="692.0" prefHeight="27.0" prefWidth="1280.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Adicionar Professor (a)" />
-                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Editar Professor (a)" />
-                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Excluir Professor (a)" />
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="426.0" text="Adicionar Professor (a)">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="430.0" text="Editar Professor (a)">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="426.0" text="Excluir Professor (a)">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
             </children>
         </HBox>
-        <TextField alignment="CENTER" layoutY="313.0" prefHeight="31.0" prefWidth="600.0" text="Área do Coordenador">
-            <font>
-                <Font name="Arial" size="15.0" />
-            </font>
-        </TextField>
-        <TableView layoutY="-2.0" prefHeight="318.0" prefWidth="600.0" />
+        <TableView layoutY="-2.0" prefHeight="650.0" prefWidth="1280.0">
+         <columns>
+            <TableColumn prefWidth="384.0" text="Nome" />
+            <TableColumn prefWidth="384.0" text="E-mail" />
+            <TableColumn prefWidth="256.0" text="Telefone" />
+            <TableColumn prefWidth="128.0" text="Mátricula" />
+            <TableColumn prefWidth="128.0" text="Status" />
+         </columns>
+      </TableView>
     </children>
 
 </AnchorPane>
