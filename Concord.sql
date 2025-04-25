@@ -32,9 +32,9 @@ CREATE TABLE curso (
 
 CREATE TABLE aulas (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    className VARCHAR(100) NOT NULL,
-    day varchar(20) NOT NULL,
-    time varchar(20) NOT NULL,
+    diciplina VARCHAR(100) NOT NULL,
+    dia varchar(20) NOT NULL,
+    horario varchar(20) NOT NULL,
     curso_id INT,
     professor_id INT,
     FOREIGN KEY (curso_id) REFERENCES curso(id),

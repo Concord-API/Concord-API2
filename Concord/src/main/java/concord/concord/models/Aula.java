@@ -2,31 +2,31 @@ package concord.concord.models;
 
 public class Aula {
     private int id;
-    private String className;
+    private String diciplina;
     private Professor professor;
     private Curso course;
-    private String day;
-    private String time;
+    private String dia;
+    private String horario;
 
 
 
 
-    public Aula(String className, Professor professor,Curso course, String day, String time) {
-        this.className = className;
+    public Aula(String diciplina, Professor professor,Curso course, String dia, String horario) {
+        this.diciplina = diciplina;
         this.professor = professor;
-        this.time = time;
+        this.horario = horario;
         this.course = course;
-        this.day = day;
+        this.dia = dia;
     }
 
 
-    public Aula(int id, String className, Professor professor,Curso course, String day, String time) {
+    public Aula(int id, String diciplina, Professor professor,Curso course, String dia, String horario) {
         this.id = id;
-        this.className = className;
+        this.diciplina = diciplina;
         this.professor = professor;
         this.course = course;
-        this.day = day;
-        this.time = time;
+        this.dia = dia;
+        this.horario = horario;
 
 
     }
@@ -40,12 +40,12 @@ public class Aula {
         this.id = id;
     }
 
-    public String getClassName() {
-        return className;
+    public String getdiciplina() {
+        return diciplina;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setdiciplina(String diciplina) {
+        this.diciplina = diciplina;
     }
 
     public Professor getProfessor() {
@@ -56,12 +56,12 @@ public class Aula {
         this.professor = professor;
     }
 
-    public String getTime() {
-        return time;
+    public String gethorario() {
+        return horario;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void sethorario(String horario) {
+        this.horario = horario;
     }
 
     public Curso getCourse() {
@@ -72,11 +72,11 @@ public class Aula {
         this.course = course;
     }
 
-    public String getDay() {
-        return day;
+    public String getdia() {
+        return dia;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setdia(String dia) {
+        this.dia = dia;
     }
 }

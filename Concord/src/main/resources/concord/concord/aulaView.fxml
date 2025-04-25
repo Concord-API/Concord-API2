@@ -26,11 +26,11 @@
 
         <TableView fx:id="table" layoutY="-1.0" prefHeight="408.0" prefWidth="704.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="classNameCol" prefWidth="240.0" text="Aula" />
+                <TableColumn fx:id="diciplinaCol" prefWidth="240.0" text="Aula" />
                 <TableColumn fx:id="courseCol" prefWidth="140.0" text="Curso" />
                 <TableColumn fx:id="professorCol" prefWidth="210.0" text="Professor (a)" />
-                <TableColumn fx:id="dayCol" prefWidth="50.0" text="Dia " />
-                <TableColumn fx:id="timeCol" prefWidth="65.0" text="Horário" />
+                <TableColumn fx:id="diaCol" prefWidth="50.0" text="Dia " />
+                <TableColumn fx:id="horarioCol" prefWidth="65.0" text="Horário" />
             </columns>
         </TableView>
     </children>

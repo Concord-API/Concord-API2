@@ -24,11 +24,11 @@
         </HBox>
       <TableView prefHeight="408.0" prefWidth="704.0">
         <columns>
-          <TableColumn prefWidth="240.0" text="Curso" />
-          <TableColumn prefWidth="140.0" text="Aula" />
-            <TableColumn prefWidth="210.0" text="Professor (a)" />
-            <TableColumn prefWidth="50.0" text="Dia" />
-            <TableColumn prefWidth="65.0" text="Horário" />
+          <TableColumn x:id="diciplinaCol" prefWidth="240.0" text="Curso" />
+          <TableColumn x:id="diciplinaCol" prefWidth="140.0" text="Aula" />
+            <TableColumn x:id="diciplinaCol" prefWidth="210.0" text="Professor (a)" />
+            <TableColumn x:id="diciplinaCol" prefWidth="50.0" text="Dia" />
+            <TableColumn x:id="diciplinaCol" prefWidth="65.0" text="Horário" />
         </columns>
       </TableView>
     </children>

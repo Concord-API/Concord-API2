@@ -1,8 +1,8 @@
 package concord.concord.controllers;
 
 import concord.concord.DAO.AulaDAO;
-
-
+import concord.concord.DAO.CursoDAO;
+import concord.concord.DAO.ProfessorDAO;
 import concord.concord.models.Aula;
 import concord.concord.models.Professor;
 import concord.concord.models.Curso;
@@ -21,13 +21,13 @@ public class AulaController {
     @FXML
     private TableView<Aula> table;
     @FXML
-    private TableColumn<Aula, String> classNameCol;
+    private TableColumn<Aula, String> diciplinaCol;
     @FXML
     private TableColumn<Aula, String> professorCol;
     @FXML
-    private TableColumn<Aula, String> timeCol;
+    private TableColumn<Aula, String> horarioCol;
     @FXML
-    private TableColumn<Aula, String> dayCol;
+    private TableColumn<Aula, String> diaCol;
     @FXML
     private TableColumn<Aula, String> courseCol;
 
@@ -105,8 +105,8 @@ public class AulaController {
     private final ObservableList<String> horarios = FXCollections.observableArrayList("07:10", "08:00", "09:15", "10:05", "10:55", "11:45", "18:45", "19:35", "20:35", "21:25", "22:15");
     private final ObservableList<String> dias = FXCollections.observableArrayList("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado");
 
-    private final ProfessorController professorController = new ProfessorController();
-    private final CursoController cursoController = new CursoController();
+    private final ProfessorDAO professorDAO = new ProfessorDAO();
+    private final CursoDAO cursoDAO = new CursoDAO();
 
     private ObservableList<Professor> professores = FXCollections.observableArrayList();
     private ObservableList<Curso> cursos = FXCollections.observableArrayList();
@@ -121,19 +121,19 @@ public class AulaController {
 
     @FXML
     public void initialize() {
-        classNameCol.setCellValueFactory(new PropertyValueFactory<>("className"));
+        diciplinaCol.setCellValueFactory(new PropertyValueFactory<>("diciplina"));
         professorCol.setCellValueFactory(new PropertyValueFactory<>("professor"));
         courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
-        dayCol.setCellValueFactory(new PropertyValueFactory<>("day"));
-        timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
+        diaCol.setCellValueFactory(new PropertyValueFactory<>("dia"));
+        horarioCol.setCellValueFactory(new PropertyValueFactory<>("horario"));
 
         carregarProfessoresECursos();
         carregarAulasDoBanco();
     }
 
     private void carregarProfessoresECursos() {
-        professores.setAll(professorController.buscarTodos());
-        cursos.setAll(cursoController.buscarCursos());
+        professores.setAll(professorDAO.buscarTodos());
+        cursos.setAll(cursoDAO.buscarCursos());
     }
 
 
@@ -143,7 +143,7 @@ public class AulaController {
         Optional<Aula> result = dialog.showAndWait();
 
         result.ifPresent(aula -> {
-            boolean professorOcupado = aulaDAO.professorAula(aula.getProfessor(), aula.getDay(), aula.getTime());
+            boolean professorOcupado = aulaDAO.professorAula(aula.getProfessor(), aula.getdia(), aula.gethorario());
 
             if (professorOcupado) {
                 mostrarAlerta("Erro", "Horário Indisponível", "O professor já tem uma aula nesse horário!");
@@ -167,18 +167,18 @@ public class AulaController {
                     return;
                 }
                 aulaDAO.editarAula(selected.getId(), updated);
-                selected.setClassName(updated.getClassName());
+                selected.setdiciplina(updated.getdiciplina());
                 selected.setProfessor(updated.getProfessor());
                 selected.setCourse(updated.getCourse());
-                selected.setDay(updated.getDay());
-                selected.setTime(updated.getTime());
+                selected.setdia(updated.getdia());
+                selected.sethorario(updated.gethorario());
                 table.refresh();
             });
         }
     }
 
     private boolean validarAula(Aula aula, int idAtual) {
-        return !aulaDAO.existeConflitoDeHorario(aula.getProfessor(), aula.getDay(), aula.getTime(), idAtual);
+        return !aulaDAO.existeConflitoDeHorario(aula.getProfessor(), aula.getdia(), aula.gethorario(), idAtual);
     }
 
 
@@ -207,41 +207,41 @@ public class AulaController {
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
     
-        ComboBox<String> classNameComboBox = new ComboBox<>(aulas);
+        ComboBox<String> diciplinaComboBox = new ComboBox<>(aulas);
         ComboBox<Professor> professorComboBox = new ComboBox<>(professores);
         ComboBox<Curso> courseComboBox = new ComboBox<>(cursos);
-        ComboBox<String> dayComboBox = new ComboBox<>(dias);
-        ComboBox<String> timeComboBox = new ComboBox<>(horarios);
+        ComboBox<String> diaComboBox = new ComboBox<>(dias);
+        ComboBox<String> horarioComboBox = new ComboBox<>(horarios);
     
         if (existing != null) {
-            classNameComboBox.setValue(existing.getClassName());
+            diciplinaComboBox.setValue(existing.getdiciplina());
             professorComboBox.setValue(existing.getProfessor());
             courseComboBox.setValue(existing.getCourse());
-            dayComboBox.setValue(existing.getDay());
-            timeComboBox.setValue(existing.getTime());
+            diaComboBox.setValue(existing.getdia());
+            horarioComboBox.setValue(existing.gethorario());
         }
     
         dialogPane.setContent(new VBox(10,
-                new Label("Matéria:"), classNameComboBox,
+                new Label("Matéria:"), diciplinaComboBox,
                 new Label("Professor (a):"), professorComboBox,
                 new Label("Curso:"), courseComboBox,
-                new Label("Dia:"), dayComboBox,
-                new Label("Horário:"), timeComboBox
+                new Label("Dia:"), diaComboBox,
+                new Label("Horário:"), horarioComboBox
         ));
     
         dialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
                 
-                if (classNameComboBox.getValue() == null || professorComboBox.getValue() == null || 
-                    courseComboBox.getValue() == null || dayComboBox.getValue() == null || 
-                    timeComboBox.getValue() == null) {
+                if (diciplinaComboBox.getValue() == null || professorComboBox.getValue() == null || 
+                    courseComboBox.getValue() == null || diaComboBox.getValue() == null || 
+                    horarioComboBox.getValue() == null) {
                     
                     mostrarAlerta("Erro", "Campos Obrigatórios", "Por favor, preencha todos os campos!");
                     return null; 
                 }
                 
-                return new Aula(classNameComboBox.getValue(), professorComboBox.getValue(),
-                                courseComboBox.getValue(), dayComboBox.getValue(), timeComboBox.getValue());
+                return new Aula(diciplinaComboBox.getValue(), professorComboBox.getValue(),
+                                courseComboBox.getValue(), diaComboBox.getValue(), horarioComboBox.getValue());
             }
             return null;
         });

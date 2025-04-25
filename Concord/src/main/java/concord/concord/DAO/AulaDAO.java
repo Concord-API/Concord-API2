@@ -12,7 +12,7 @@ import java.util.List;
 public class AulaDAO {
 
     public boolean professorAula(Professor professor, String dia, String hora) {
-        String sql = "SELECT COUNT(*) FROM aulas WHERE professor_id = ? AND day = ? AND time = ?";
+        String sql = "SELECT COUNT(*) FROM aulas WHERE professor_id = ? AND dia = ? AND horario = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, professor.getId());
@@ -28,14 +28,14 @@ public class AulaDAO {
 
 
     public void adicionarAula(Aula aula) {
-        String sql = "INSERT INTO aulas(className, professor_id, curso_id, day, time) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO aulas(diciplina, professor_id, curso_id, dia, horario) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, aula.getClassName());
+            stmt.setString(1, aula.getdiciplina());
             stmt.setInt(2, aula.getProfessor().getId());
             stmt.setInt(3, aula.getCourse().getId());
-            stmt.setString(4, aula.getDay());
-            stmt.setString(5, aula.getTime());
+            stmt.setString(4, aula.getdia());
+            stmt.setString(5, aula.gethorario());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,14 +44,14 @@ public class AulaDAO {
 
 
     public void editarAula(int id, Aula aula) {
-        String sql = "UPDATE aulas SET className = ?, professor_id = ?, curso_id = ?, day = ?, time = ? WHERE id = ?";
+        String sql = "UPDATE aulas SET diciplina = ?, professor_id = ?, curso_id = ?, dia = ?, horario = ? WHERE id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, aula.getClassName());
+            stmt.setString(1, aula.getdiciplina());
             stmt.setInt(2, aula.getProfessor().getId());
             stmt.setInt(3, aula.getCourse().getId());
-            stmt.setString(4, aula.getDay());
-            stmt.setString(5, aula.getTime());
+            stmt.setString(4, aula.getdia());
+            stmt.setString(5, aula.gethorario());
             stmt.setInt(6, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -61,7 +61,7 @@ public class AulaDAO {
 
 
     public boolean existeConflitoDeHorario(Professor professor, String dia, String hora, int idAtual) {
-        String sql = "SELECT COUNT(*) FROM aulas WHERE professor_id = ? AND day = ? AND time = ? AND id != ?";
+        String sql = "SELECT COUNT(*) FROM aulas WHERE professor_id = ? AND dia = ? AND horario = ? AND id != ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, professor.getId());  // Corrigido para usar o ID do professor
@@ -102,11 +102,11 @@ public class AulaDAO {
 
                 Aula aula = new Aula(
                         rs.getInt("id"),
-                        rs.getString("className"),
+                        rs.getString("diciplina"),
                         professor,  // Agora você está passando o objeto Professor
                         curso,
-                        rs.getString("day"),
-                        rs.getString("time")
+                        rs.getString("dia"),
+                        rs.getString("horario")
                 );
                 lista.add(aula);
             }
