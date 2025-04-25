@@ -1,6 +1,6 @@
 package concord.concord;
 
-import concord.concord.controllers.ControllerCadAula;
+import concord.concord.controllers.AulaController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private ControllerCadAula controller;
+    private AulaController controller;
 
     public static void main(String[] args) {
         launch(args);
@@ -18,7 +18,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/concord/concord/hello-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/concord/concord/mainView.fxml"));
             Parent root = loader.load();
             controller = loader.getController();
 

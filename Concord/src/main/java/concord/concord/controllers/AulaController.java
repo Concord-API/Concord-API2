@@ -3,7 +3,6 @@ package concord.concord.controllers;
 import concord.concord.DAO.AulaDAO;
 
 
-import concord.concord.Database;
 import concord.concord.models.Aula;
 import concord.concord.models.Professor;
 import concord.concord.models.Curso;
@@ -14,12 +13,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
-public class ControllerCadAula {
+public class AulaController {
 
     @FXML
     private TableView<Aula> table;
