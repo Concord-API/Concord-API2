@@ -29,7 +29,7 @@ public class AulaController {
     @FXML
     private TableColumn<Aula, String> diaCol;
     @FXML
-    private TableColumn<Aula, String> courseCol;
+    private TableColumn<Aula, String> cursoCol;
 
     private final ObservableList<Aula> classList = FXCollections.observableArrayList();
 
@@ -123,7 +123,7 @@ public class AulaController {
     public void initialize() {
         diciplinaCol.setCellValueFactory(new PropertyValueFactory<>("diciplina"));
         professorCol.setCellValueFactory(new PropertyValueFactory<>("professor"));
-        courseCol.setCellValueFactory(new PropertyValueFactory<>("course"));
+        cursoCol.setCellValueFactory(new PropertyValueFactory<>("course"));
         diaCol.setCellValueFactory(new PropertyValueFactory<>("dia"));
         horarioCol.setCellValueFactory(new PropertyValueFactory<>("horario"));
 
