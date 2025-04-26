@@ -5,23 +5,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="750.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="750.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../../styles/main.css">
    <center>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="1280.0">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="1280.0" styleClass="dark-theme">
           <children>
-              <TabPane layoutY="-42.0" prefHeight="750.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
+              <TabPane layoutY="-42.0" prefHeight="750.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE" styleClass="modern-tab-pane">
                   <tabs>
-                      <Tab text="Aula">
+                      <Tab text="Aula" styleClass="modern-tab">
                           <content>
                               <fx:include source="aulaView.fxml" />
                           </content>
                       </Tab>
-                      <Tab text="Curso">
+                      <Tab text="Curso" styleClass="modern-tab">
                           <content>
                               <fx:include source="cursoView.fxml" />
                           </content>
                       </Tab>
-                      <Tab text="Professor">
+                      <Tab text="Professor" styleClass="modern-tab">
                           <content>
                               <fx:include source="professorView.fxml" />
                           </content>

@@ -31,11 +31,11 @@ public class AulaDAO {
         String sql = "INSERT INTO aulas(diciplina, professor_id, curso_id, dia, horario) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, aula.getdiciplina());
+            stmt.setString(1, aula.getDiciplina());
             stmt.setInt(2, aula.getProfessor().getId());
-            stmt.setInt(3, aula.getCourse().getId());
-            stmt.setString(4, aula.getdia());
-            stmt.setString(5, aula.gethorario());
+            stmt.setInt(3, aula.getCurso().getId());
+            stmt.setString(4, aula.getDia());
+            stmt.setString(5, aula.getHorario());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,11 +47,11 @@ public class AulaDAO {
         String sql = "UPDATE aulas SET diciplina = ?, professor_id = ?, curso_id = ?, dia = ?, horario = ? WHERE id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, aula.getdiciplina());
+            stmt.setString(1, aula.getDiciplina());
             stmt.setInt(2, aula.getProfessor().getId());
-            stmt.setInt(3, aula.getCourse().getId());
-            stmt.setString(4, aula.getdia());
-            stmt.setString(5, aula.gethorario());
+            stmt.setInt(3, aula.getCurso().getId());
+            stmt.setString(4, aula.getDia());
+            stmt.setString(5, aula.getHorario());
             stmt.setInt(6, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -64,7 +64,7 @@ public class AulaDAO {
         String sql = "SELECT COUNT(*) FROM aulas WHERE professor_id = ? AND dia = ? AND horario = ? AND id != ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, professor.getId());  // Corrigido para usar o ID do professor
+            stmt.setInt(1, professor.getId());
             stmt.setString(2, dia);
             stmt.setString(3, hora);
             stmt.setInt(4, idAtual);

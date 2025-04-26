@@ -1,0 +1,205 @@
+/* Cores base do tema escuro */
+.root {
+    -fx-background-color: #0a0a0a;
+    -fx-text-fill: #ffffff;
+}
+
+/* Tema escuro */
+.dark-theme {
+    -fx-background-color: #0a0a0a;
+    -fx-text-fill: #ffffff;
+}
+
+/* TabPane moderno */
+.modern-tab-pane {
+    -fx-background-color: #0a0a0a;
+    -fx-tab-min-width: 120px;
+    -fx-tab-max-width: 120px;
+}
+
+.modern-tab-pane .tab-header-area {
+    -fx-background-color: #0a0a0a;
+    -fx-padding: 0 0 0 0;
+}
+
+.modern-tab-pane .tab-header-background {
+    -fx-background-color: #0a0a0a;
+}
+
+.modern-tab {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
+}
+
+.modern-tab:selected {
+    -fx-background-color: #2d2d2d;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 8, 0, 0, 3);
+}
+
+.modern-tab-pane .tab-label {
+    -fx-text-fill: #ffffff;
+}
+
+.modern-tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #ffffff;
+}
+
+/* Tabelas */
+.table-view {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);
+}
+
+.table-view .column-header {
+    -fx-background-color: #2d2d2d;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-border-color: #333333;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #2d2d2d;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #333333;
+    -fx-padding: 8px;
+}
+
+.table-row-cell {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #ffffff;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #1f1f1f;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #3d3d3d;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);
+}
+
+/* Botões */
+.button {
+    -fx-background-color: #2d2d2d;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: #3d3d3d;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 8, 0, 0, 3);
+}
+
+.button:pressed {
+    -fx-background-color: #4d4d4d;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.primary-button {
+    -fx-background-color: #2d2d2d;
+}
+
+.primary-button:hover {
+    -fx-background-color: #3d3d3d;
+}
+
+.danger-button {
+    -fx-background-color: #4d1a1a;
+}
+
+.danger-button:hover {
+    -fx-background-color: #5d2a2a;
+}
+
+/* Campos de texto */
+.text-field, .text-area, .combo-box {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #333333;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.text-field:focused, .text-area:focused, .combo-box:focused {
+    -fx-border-color: #4d4d4d;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
+}
+
+/* Diálogos */
+.dialog-pane {
+    -fx-background-color: #1a1a1a;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 3);
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #2d2d2d;
+}
+
+.dialog-pane .content {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #ffffff;
+}
+
+.dialog-pane .button-bar {
+    -fx-background-color: #2d2d2d;
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+}
+
+.header-text {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
+}
+
+/* Scrollbars */
+.scroll-bar {
+    -fx-background-color: #1a1a1a;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #3d3d3d;
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #1a1a1a;
+}
+
+/* HBox e VBox */
+.hbox, .vbox {
+    -fx-background-color: #1a1a1a;
+    -fx-spacing: 15px;
+    -fx-padding: 15px;
+}
+
+.button-container {
+    -fx-background-color: #1a1a1a;
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
+} 

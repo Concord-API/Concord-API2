@@ -123,7 +123,7 @@ public class AulaController {
     public void initialize() {
         diciplinaCol.setCellValueFactory(new PropertyValueFactory<>("diciplina"));
         professorCol.setCellValueFactory(new PropertyValueFactory<>("professor"));
-        cursoCol.setCellValueFactory(new PropertyValueFactory<>("course"));
+        cursoCol.setCellValueFactory(new PropertyValueFactory<>("curso"));
         diaCol.setCellValueFactory(new PropertyValueFactory<>("dia"));
         horarioCol.setCellValueFactory(new PropertyValueFactory<>("horario"));
 
@@ -143,7 +143,7 @@ public class AulaController {
         Optional<Aula> result = dialog.showAndWait();
 
         result.ifPresent(aula -> {
-            boolean professorOcupado = aulaDAO.professorAula(aula.getProfessor(), aula.getdia(), aula.gethorario());
+            boolean professorOcupado = aulaDAO.professorAula(aula.getProfessor(), aula.getDia(), aula.getHorario());
 
             if (professorOcupado) {
                 mostrarAlerta("Erro", "Horário Indisponível", "O professor já tem uma aula nesse horário!");
@@ -167,18 +167,18 @@ public class AulaController {
                     return;
                 }
                 aulaDAO.editarAula(selected.getId(), updated);
-                selected.setdiciplina(updated.getdiciplina());
+                selected.setDiciplina(updated.getDiciplina());
                 selected.setProfessor(updated.getProfessor());
-                selected.setCourse(updated.getCourse());
-                selected.setdia(updated.getdia());
-                selected.sethorario(updated.gethorario());
+                selected.setCurso(updated.getCurso());
+                selected.setDia(updated.getDia());
+                selected.setHorario(updated.getHorario());
                 table.refresh();
             });
         }
     }
 
     private boolean validarAula(Aula aula, int idAtual) {
-        return !aulaDAO.existeConflitoDeHorario(aula.getProfessor(), aula.getdia(), aula.gethorario(), idAtual);
+        return !aulaDAO.existeConflitoDeHorario(aula.getProfessor(), aula.getDia(), aula.getHorario(), idAtual);
     }
 
 
@@ -214,11 +214,11 @@ public class AulaController {
         ComboBox<String> horarioComboBox = new ComboBox<>(horarios);
     
         if (existing != null) {
-            diciplinaComboBox.setValue(existing.getdiciplina());
+            diciplinaComboBox.setValue(existing.getDiciplina());
             professorComboBox.setValue(existing.getProfessor());
-            courseComboBox.setValue(existing.getCourse());
-            diaComboBox.setValue(existing.getdia());
-            horarioComboBox.setValue(existing.gethorario());
+            courseComboBox.setValue(existing.getCurso());
+            diaComboBox.setValue(existing.getDia());
+            horarioComboBox.setValue(existing.getHorario());
         }
     
         dialogPane.setContent(new VBox(10,

@@ -4,27 +4,27 @@ public class Aula {
     private int id;
     private String diciplina;
     private Professor professor;
-    private Curso course;
+    private Curso curso;
     private String dia;
     private String horario;
 
 
 
 
-    public Aula(String diciplina, Professor professor,Curso course, String dia, String horario) {
+    public Aula(String diciplina, Professor professor,Curso curso, String dia, String horario) {
         this.diciplina = diciplina;
         this.professor = professor;
         this.horario = horario;
-        this.course = course;
+        this.curso = curso;
         this.dia = dia;
     }
 
 
-    public Aula(int id, String diciplina, Professor professor,Curso course, String dia, String horario) {
+    public Aula(int id, String diciplina, Professor professor,Curso curso, String dia, String horario) {
         this.id = id;
         this.diciplina = diciplina;
         this.professor = professor;
-        this.course = course;
+        this.curso = curso;
         this.dia = dia;
         this.horario = horario;
 
@@ -40,11 +40,11 @@ public class Aula {
         this.id = id;
     }
 
-    public String getdiciplina() {
+    public String getDiciplina() {
         return diciplina;
     }
 
-    public void setdiciplina(String diciplina) {
+    public void setDiciplina(String diciplina) {
         this.diciplina = diciplina;
     }
 
@@ -56,27 +56,27 @@ public class Aula {
         this.professor = professor;
     }
 
-    public String gethorario() {
+    public String getHorario() {
         return horario;
     }
 
-    public void sethorario(String horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
 
-    public Curso getCourse() {
-        return course;
+    public Curso getCurso() {
+        return curso;
     }
 
-    public void setCourse(Curso course) {
-        this.course = course;
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
-    public String getdia() {
+    public String getDia() {
         return dia;
     }
 
-    public void setdia(String dia) {
+    public void setDia(String dia) {
         this.dia = dia;
     }
 }
