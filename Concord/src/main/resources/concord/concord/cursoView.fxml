@@ -29,7 +29,7 @@
         <columns>
           <TableColumn fx:id="nomeCol" prefWidth="275.0" text="Nome" styleClass="table-column" />
           <TableColumn fx:id="siglaCol" prefWidth="91.0" text="Sigla" styleClass="table-column" />
-            <TableColumn fx:id="duracaoCol" prefWidth="91.0" text="Duração" styleClass="table-column" />
+            <TableColumn fx:id="duracaoCol" prefWidth="91.0" text="Duração (sem)" styleClass="table-column" />
             <TableColumn fx:id="modalidadeCol" prefWidth="91.0" text="Modalidade" styleClass="table-column" />
             <TableColumn fx:id="turnoCol" prefWidth="91.0" text="Turno" styleClass="table-column" />
             <TableColumn fx:id="descricaoCol" prefWidth="275.0" text="Descrição" styleClass="table-column" />

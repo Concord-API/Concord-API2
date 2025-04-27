@@ -101,25 +101,27 @@ public class ProfessorController {
     private Dialog<Professor> createProfessorDialog(String title, Professor existing) {
         Dialog<Professor> dialog = new Dialog<>();
         dialog.setTitle(title);
-    
+
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-    
+
         TextField nomeField = new TextField();
         TextField emailField = new TextField();
         TextField telefoneField = new TextField();
         TextField matriculaField = new TextField();
-        ComboBox<Integer> statusComboBox = new ComboBox<>(FXCollections.observableArrayList(0, 1));
-        statusComboBox.setValue(1);
-    
+        ComboBox<String> statusComboBox = new ComboBox<>(FXCollections.observableArrayList("Ativo", "Inativo"));
+        statusComboBox.setValue("Ativo");
+
+
         if (existing != null) {
             nomeField.setText(existing.getNome());
             emailField.setText(existing.getEmail());
             telefoneField.setText(existing.getTelefone());
             matriculaField.setText(existing.getMatricula());
-            statusComboBox.setValue(existing.getStatus());
+            statusComboBox.setValue(existing.getStatus() == 1 ? "Ativo" : "Inativo");
+
         }
-    
+
         dialogPane.setContent(new VBox(10,
                 new Label("Nome:"), nomeField,
                 new Label("Email:"), emailField,
@@ -127,27 +129,27 @@ public class ProfessorController {
                 new Label("Matrícula:"), matriculaField,
                 new Label("Status:"), statusComboBox
         ));
-    
+
         dialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
-                if (nomeField.getText().isEmpty() || emailField.getText().isEmpty() || 
+                if (nomeField.getText().isEmpty() || emailField.getText().isEmpty() ||
                     telefoneField.getText().isEmpty() || matriculaField.getText().isEmpty()) {
                     mostrarAlerta("Erro", "Campos Obrigatórios", "Por favor, preencha todos os campos!");
                     return null;
                 }
-                
+                int status = statusComboBox.getValue().equals("Ativo") ? 1 : 0;
                 return new Professor(
                     existing != null ? existing.getId() : 0,
                     nomeField.getText(),
                     emailField.getText(),
                     telefoneField.getText(),
                     matriculaField.getText(),
-                    statusComboBox.getValue()
+                    status
                 );
             }
             return null;
         });
-    
+
         return dialog;
     }
 }

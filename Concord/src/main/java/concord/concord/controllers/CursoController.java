@@ -53,7 +53,8 @@ public class CursoController {
         modalidadeCol.setCellValueFactory(new PropertyValueFactory<>("modalidade"));
         turnoCol.setCellValueFactory(new PropertyValueFactory<>("turno"));
         descricaoCol.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-        coordenadorCol.setCellValueFactory(new PropertyValueFactory<>("coordenadorId"));
+        coordenadorCol.setCellValueFactory(new PropertyValueFactory<>("coordenadorNome"));
+
 
         carregarProfessores();
         carregarCursosDoBanco();
@@ -90,6 +91,16 @@ public class CursoController {
                 selected.setTurno(updated.getTurno());
                 selected.setDescricao(updated.getDescricao());
                 selected.setCoordenadorId(updated.getCoordenadorId());
+
+
+                Professor novoCoordenador = professores.stream()
+                        .filter(p -> p.getId() == updated.getCoordenadorId())
+                        .findFirst()
+                        .orElse(null);
+                if (novoCoordenador != null) {
+                    selected.setCoordenadorNome(novoCoordenador.getNome());
+                }
+
                 table.refresh();
             });
         }

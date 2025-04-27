@@ -9,7 +9,7 @@ public class Curso {
     private String turno;
     private String descricao;
     private int coordenadorId;
-
+    private String coordenadorNome;
 
     public Curso() {}
 
@@ -53,6 +53,9 @@ public class Curso {
 
     public int getCoordenadorId() { return coordenadorId; }
     public void setCoordenadorId(int coordenadorId) { this.coordenadorId = coordenadorId; }
+
+    public String getCoordenadorNome() { return coordenadorNome; }
+    public void setCoordenadorNome(String coordenadorNome) { this.coordenadorNome = coordenadorNome; }
 
     @Override
     public String toString() {

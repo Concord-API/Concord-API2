@@ -222,7 +222,7 @@ public class AulaController {
         }
     
         dialogPane.setContent(new VBox(10,
-                new Label("Matéria:"), diciplinaComboBox,
+                new Label("Disciplina:"), diciplinaComboBox,
                 new Label("Professor (a):"), professorComboBox,
                 new Label("Curso:"), courseComboBox,
                 new Label("Dia:"), diaComboBox,

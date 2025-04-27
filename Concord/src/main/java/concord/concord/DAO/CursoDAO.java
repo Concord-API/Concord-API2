@@ -74,7 +74,8 @@ public class CursoDAO {
 
     public List<Curso> buscarCursos() {
         List<Curso> cursos = new ArrayList<>();
-        String sql = "SELECT * FROM curso";
+        String sql = "SELECT c.id, c.nome, c.sigla, c.duracao, c.modalidade, c.turno, c.descricao, c.coordenador_id, u.nome AS coordenador_nome\n" +
+                "FROM curso c JOIN professores u ON c.coordenador_id = u.id;";
 
         try (Connection conn = Database.getConnection();
              Statement stmt = conn.createStatement();
@@ -90,6 +91,7 @@ public class CursoDAO {
                 curso.setTurno(rs.getString("turno"));
                 curso.setDescricao(rs.getString("descricao"));
                 curso.setCoordenadorId(rs.getInt("coordenador_id"));
+                curso.setCoordenadorNome(rs.getString("coordenador_nome"));
 
                 cursos.add(curso);
             }
