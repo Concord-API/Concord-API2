@@ -1,4 +1,4 @@
-Gerenciamento da Grade Horária - User Story
+Gerenciamento da Grade Horária - User Story * Sprint 1 *
 
 1. Objetivo 
 
@@ -52,3 +52,62 @@ Carga Horária Semanal: Cada disciplina deve ser alocada respeitando sua quantid
 Sem Conflitos: O sistema deve impedir que um professor seja alocado em mais de uma disciplina ao mesmo tempo.
 
 Validação Automática: Antes da confirmação da grade, o sistema deve alertar sobre erros ou inconsistências. 
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+* Sprint 2 * 
+
+Objetivo
+Evoluir o sistema de Gerenciamento da Grade Horária, adicionando novos módulos de gerenciamento, melhorias técnicas e controle de consistência.
+
+Tarefas
+
+1. Atualização do Banco de Dados
+
+Migrar o banco de dados de SQLite para MySQL.
+
+Garantir a migração segura dos dados existentes.
+
+Atualizar configurações de conexão do sistema.
+
+
+2. Gerenciamento de Professores
+
+Criar tela de gerenciamento de professores.
+
+Funcionalidades:
+
+Cadastro de novos professores.
+
+Edição de dados de professores.
+
+Exclusão de professores.
+
+
+3. Mecanismo para Evitar Sobreposição de Aulas
+
+Implementar verificação automática para impedir a sobreposição de horários de um mesmo professor.
+
+Exibir aviso ao coordenador em caso de conflito.
+
+
+4. Gerenciamento de Cursos
+
+Criar tela de gerenciamento de cursos.
+
+Funcionalidades:
+
+Cadastro de novos cursos.
+
+Edição de informações de cursos.
+
+Exclusão de cursos.
+
+
+5. Modelagem UML
+
+Entregar a modelagem UML atualizada conforme definição da Sprint 1.
+
+Diagramas contemplando entidades principais e seus relacionamentos.
