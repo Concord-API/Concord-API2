@@ -32,7 +32,7 @@ curso pode definir o posicionamento das aulas de forma diferente.
 
 ## 🛠️ Tecnologias Utilizadas
 
--  JavaFX, IntelliJ, Maven, Scene builder.
+-  JavaFX, IntelliJ, Maven, Scene builder, MySQL.
   
 ## 👥 Integrantes do Grupo
 
