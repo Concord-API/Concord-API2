@@ -69,5 +69,7 @@ curso pode definir o posicionamento das aulas de forma diferente.
     </tr>
   </table>
 </div>
+  </table>
+</div>
 
 
