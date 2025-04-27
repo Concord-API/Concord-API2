@@ -40,33 +40,35 @@ curso pode definir o posicionamento das aulas de forma diferente.
   <table>
     <tr>
       <td align="center">
-        <img src="./IMG/joao baranov.jpg" width="100px;" alt="Integrante 1"/>
+        <img src="./IMG/joao baranov.jpg" width="100px;" height="130px" alt="Integrante 1"/>
         <br />
         <b>João Baranov</b>
       </td>
       <td align="center">
-        <img src="./IMG/fabiano.jpg" width="100px;" alt="Integrante 2"/>
+        <img src="./IMG/fabiano.jpg" width="100px;" height="130px" alt="Integrante 2"/>
         <br />
         <b>Fabiano Ribeiro</b>
       </td>
       <td align="center">
-        <img src="./IMG/richard.jpeg" width="100px;" alt="Integrante 3"/>
+        <img src="./IMG/richard.jpeg" width="100px;" height="130px" alt="Integrante 3"/>
         <br />
         <b>Richard Cordeiro</b>
       </td>
     </tr>
     <tr>
       <td align="center">
-        <img src="./IMG/victor.jpeg" width="100px;" alt="Integrante 4"/>
+        <img src="./IMG/victor.jpeg" width="100px;" height="130px" alt="Integrante 4"/>
         <br />
         <b>Victor Nogueira</b>
       </td>
       <td align="center">
-        <img src="./IMG/joao.jpeg" width="100px;" alt="Integrante 5"/>
+        <img src="./IMG/patricia.jpg" width="100px;" height="130px" alt="Integrante 5"/>
         <br />
-        <b>João Gabriel</b>
+        <b>Patricia Moraes</b>
   </td>
     </tr>
+  </table>
+</div>
   </table>
 </div>
 
