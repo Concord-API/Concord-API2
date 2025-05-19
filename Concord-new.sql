@@ -15,10 +15,10 @@ flush privileges;
 CREATE TABLE professores (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
     telefone VARCHAR(20),
     carga_horaria INT DEFAULT 240,
-    matricula VARCHAR(20) UNIQUE,
+    matricula VARCHAR(20) NOT NULL UNIQUE,
     status INT DEFAULT 1
 );
 
