@@ -3,9 +3,11 @@ package concord.concord.controllers;
 import concord.concord.DAO.AulaDAO;
 import concord.concord.DAO.CursoDAO;
 import concord.concord.DAO.ProfessorDAO;
+import concord.concord.DAO.DisciplinaDAO;
 import concord.concord.models.Aula;
 import concord.concord.models.Professor;
 import concord.concord.models.Curso;
+import concord.concord.models.Disciplina;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,81 +34,14 @@ public class AulaController {
     private TableColumn<Aula, String> cursoCol;
 
     private final ObservableList<Aula> classList = FXCollections.observableArrayList();
-
-    private final AulaDAO aulaDAO = new AulaDAO();
-
-
-
-    private final ObservableList<String> aulas = FXCollections.observableArrayList(
-            "Administração de Banco de Dados", "Administração Geral", "Algoritmos e Lógica de Programação",
-            "Arquitetura e Organização de Computadores", "Banco de Dados", "Banco de Dados – Relacional",
-            "Banco de Dados - Não Relacional", "Computação em Nuvem I", "Computação em Nuvem II",
-            "Comunicação e Expressão", "Comunicação Oral e Escrita", "Comércio Exterior",
-            "Comércio Exterior e Logística", "Contabilidade", "Contabilidade Gerencial",
-            "Custos e Tarifas Logísticas", "Custos Industriais", "Desenho", "Economia",
-            "Economia e Finanças", "Economia e Finanças Empresariais", "Embalagens e Unitização",
-            "Engenharia de Software I", "Engenharia de Software II", "Engenharia de Software III",
-            "Ergonomia", "Espanhol I", "Espanhol II", "Estatística", "Estatística Aplicada",
-            "Estatística Aplicada à Gestão", "Ética e Direito Empresarial",
-            "Ética e Responsabilidade Profissional", "Ética Profissional e Patente",
-            "Experiência do Usuário", "Fundamentos da Comunicação e Expressão",
-            "Fundamentos da Comunicação Empresarial", "Fundamentos de Administração",
-            "Fundamentos de Automação Industrial", "Fundamentos de Gestão da Qualidade",
-            "Fundamentos de Gestão de Projetos", "Fundamentos de Matemática Financeira",
-            "Gestão Ambiental Aplicada", "Gestão da Cadeia de Suprimentos",
-            "Gestão da Produção Aplicada", "Gestão da Produção e Operações",
-            "Gestão de Equipes", "Gestão de Marketing e Vendas", "Gestão de Pessoas",
-            "Gestão de Projetos", "Gestão de Projetos Logísticos",
-            "Gestão de Transporte de Cargas e Roteirização",
-            "Gestão e Governança de Tecnologia da Informação", "Gestão Financeira",
-            "Gestão Tributária nas Operações Logísticas", "Higiene e Segurança do Trabalho",
-            "Informática", "Informática Aplicada à Logística", "Inglês I", "Inglês II",
-            "Inglês III", "Inglês IV", "Inglês V", "Inglês VI", "Inglês para Logística I",
-            "Inglês para Logística II", "Inglês para Logística III", "Inglês para Logística IV",
-            "Inteligência Artificial", "Interação Humano-Computador", "Introdução à Contabilidade",
-            "Jogos de Empresas", "Laboratório de Banco de Dados",
-            "Laboratório de Desenvolvimento em BD I", "Laboratório de Desenvolvimento em BD II",
-            "Laboratório de Desenvolvimento em BD III", "Laboratório de Desenvolvimento em BD IV",
-            "Laboratório de Desenvolvimento em BD V", "Laboratório de Desenvolvimento em BD VI",
-            "Laboratório de Desenvolvimento Multiplataforma", "Laboratório de Engenharia de Software",
-            "Laboratório de Hardware", "Liderança e Empreendedorismo", "Linguagem de Programação",
-            "Linguagem de Programação I", "Linguagem de Programação II",
-            "Logística Empresarial", "Logística Verde", "Matemática Aplicada",
-            "Matemática Discreta", "Matemática Financeira", "Mecânica",
-            "Metodologia da Pesquisa Científica", "Metodologia da Pesquisa Científico-Tecnológica",
-            "Metodologias de Desenvolvimento de Software", "Metodologias de Manutenção de Aeronaves",
-            "Métodos para a Produção do Conhecimento", "Métodos Quantitativos de Gestão",
-            "Modalidade e Intermodalidade", "Movimentação e Armazenagem",
-            "Navegação Interior e Portos Marítimos", "Planejamento, Programação e Controle da Produção (PPCP)",
-            "Planejamento Estratégico I", "Planejamento Estratégico II",
-            "Processos de Produção", "Programação Avançada de Banco de Dados",
-            "Programação de Scripts", "Programação em Microinformática",
-            "Programação Linear e Aplicações", "Programação Orientada a Objetos",
-            "Programação para Dispositivos Móveis", "Programação para Dispositivos Móveis I",
-            "Programação para Dispositivos Móveis II", "Projeto de Fábrica",
-            "Projeto de Produto I", "Projeto de Produto II", "Projeto de Trabalho de Graduação I",
-            "Projeto de Trabalho de Graduação II", "Projeto Integrador Aplicado à Logística I",
-            "Projeto Integrador Aplicado à Logística II", "Projeto Integrador Aplicado à Logística III",
-            "Projeto Integrador Aplicado à Logística IV",
-            "Projeto Integrador em Gestão da Produção Industrial I",
-            "Projeto Integrador em Gestão da Produção Industrial II",
-            "Projeto Integrador em GPI III", "Projeto Interdisciplinar VI",
-            "Qualidade e Testes de Software", "Redes de Computadores",
-            "Segurança da Informação", "Simulação Aplicada à Produção", "Simulação em Logística",
-            "Sistemas de Informação", "Sistemas de Movimentação e Transporte",
-            "Sistemas Operacionais I", "Sistemas Operacionais II", "Sociedade e Tecnologia",
-            "Tecnologia da Informação Aplicada à Gestão de Operações e Processos",
-            "Tecnologia da Informação Aplicada à Logística", "Tecnologia da Produção Industrial",
-            "Tecnologia dos Transportes", "Tópicos Avançados em Banco de Dados",
-            "Tópicos Especiais em Informática", "Transportes de Cargas Especiais",
-            "Transporte Aéreo"
-    );
-
+    private final ObservableList<Disciplina> disciplinas = FXCollections.observableArrayList();
     private final ObservableList<String> horarios = FXCollections.observableArrayList("07:10", "08:00", "09:15", "10:05", "10:55", "11:45", "18:45", "19:35", "20:35", "21:25", "22:15");
     private final ObservableList<String> dias = FXCollections.observableArrayList("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado");
 
+    private final AulaDAO aulaDAO = new AulaDAO();
     private final ProfessorDAO professorDAO = new ProfessorDAO();
     private final CursoDAO cursoDAO = new CursoDAO();
+    private final DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 
     private ObservableList<Professor> professores = FXCollections.observableArrayList();
     private ObservableList<Curso> cursos = FXCollections.observableArrayList();
@@ -128,6 +63,7 @@ public class AulaController {
         horarioCol.setCellValueFactory(new PropertyValueFactory<>("horario"));
 
         carregarProfessoresECursos();
+        carregarDisciplinas();
         carregarAulasDoBanco();
     }
 
@@ -136,6 +72,9 @@ public class AulaController {
         cursos.setAll(cursoDAO.buscarCursos());
     }
 
+    private void carregarDisciplinas() {
+        disciplinas.setAll(disciplinaDAO.buscarTodas());
+    }
 
     @FXML
     public void showAddDialog() {
@@ -181,7 +120,6 @@ public class AulaController {
         return !aulaDAO.existeConflitoDeHorario(aula.getProfessor(), aula.getDia(), aula.getHorario(), idAtual);
     }
 
-
     @FXML
     public void deleteSelectedClass() {
         Aula selected = table.getSelectionModel().getSelectedItem();
@@ -199,7 +137,6 @@ public class AulaController {
         table.setItems(classList);
     }
 
-
     private Dialog<Aula> createClassDialog(String title, Aula existing) {
         Dialog<Aula> dialog = new Dialog<>();
         dialog.setTitle(title);
@@ -207,14 +144,17 @@ public class AulaController {
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
     
-        ComboBox<String> diciplinaComboBox = new ComboBox<>(aulas);
+        ComboBox<Disciplina> disciplinaComboBox = new ComboBox<>(disciplinas);
         ComboBox<Professor> professorComboBox = new ComboBox<>(professores);
         ComboBox<Curso> courseComboBox = new ComboBox<>(cursos);
         ComboBox<String> diaComboBox = new ComboBox<>(dias);
         ComboBox<String> horarioComboBox = new ComboBox<>(horarios);
     
         if (existing != null) {
-            diciplinaComboBox.setValue(existing.getDiciplina());
+            disciplinaComboBox.setValue(disciplinas.stream()
+                .filter(d -> d.getNome().equals(existing.getDiciplina()))
+                .findFirst()
+                .orElse(null));
             professorComboBox.setValue(existing.getProfessor());
             courseComboBox.setValue(existing.getCurso());
             diaComboBox.setValue(existing.getDia());
@@ -222,31 +162,38 @@ public class AulaController {
         }
     
         dialogPane.setContent(new VBox(10,
-                new Label("Disciplina:"), diciplinaComboBox,
+                new Label("Disciplina:"), disciplinaComboBox,
                 new Label("Professor (a):"), professorComboBox,
                 new Label("Curso:"), courseComboBox,
                 new Label("Dia:"), diaComboBox,
                 new Label("Horário:"), horarioComboBox
         ));
-    
-        dialog.setResultConverter(button -> {
-            if (button == ButtonType.OK) {
-                
-                if (diciplinaComboBox.getValue() == null || professorComboBox.getValue() == null || 
-                    courseComboBox.getValue() == null || diaComboBox.getValue() == null || 
-                    horarioComboBox.getValue() == null) {
-                    
-                    mostrarAlerta("Erro", "Campos Obrigatórios", "Por favor, preencha todos os campos!");
-                    return null; 
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == ButtonType.OK) {
+                Disciplina disciplinaSelecionada = disciplinaComboBox.getValue();
+                Professor professorSelecionado = professorComboBox.getValue();
+                Curso cursoSelecionado = courseComboBox.getValue();
+                String diaSelecionado = diaComboBox.getValue();
+                String horarioSelecionado = horarioComboBox.getValue();
+
+                if (disciplinaSelecionada == null || professorSelecionado == null || 
+                    cursoSelecionado == null || diaSelecionado == null || horarioSelecionado == null) {
+                    mostrarAlerta("Erro", "Campos Incompletos", "Por favor, preencha todos os campos!");
+                    return null;
                 }
-                
-                return new Aula(diciplinaComboBox.getValue(), professorComboBox.getValue(),
-                                courseComboBox.getValue(), diaComboBox.getValue(), horarioComboBox.getValue());
+
+                return new Aula(
+                    disciplinaSelecionada.getNome(),
+                    professorSelecionado,
+                    cursoSelecionado,
+                    diaSelecionado,
+                    horarioSelecionado
+                );
             }
             return null;
         });
-    
+
         return dialog;
     }
-
 }

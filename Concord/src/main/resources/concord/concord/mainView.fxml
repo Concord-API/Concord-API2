@@ -26,6 +26,11 @@
                               <fx:include source="professorView.fxml" />
                           </content>
                       </Tab>
+                      <Tab text="Disciplina" styleClass="modern-tab">
+                          <content>
+                              <fx:include source="disciplinaView.fxml" />
+                          </content>
+                      </Tab>
                   </tabs>
               </TabPane>
           </children>

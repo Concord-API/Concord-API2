@@ -26,7 +26,6 @@ public class ProfessorDAO {
             stmt.setInt(5, professor.getStatus());
 
             stmt.executeUpdate();
-            System.out.println("Professor adicionado com sucesso!");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,7 +47,6 @@ public class ProfessorDAO {
             stmt.setInt(6, professor.getId());
 
             stmt.executeUpdate();
-            System.out.println("Professor atualizado com sucesso!");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,8 +62,7 @@ public class ProfessorDAO {
 
             stmt.setInt(1, id);
             stmt.executeUpdate();
-            System.out.println("Professor excluído com sucesso!");
-
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

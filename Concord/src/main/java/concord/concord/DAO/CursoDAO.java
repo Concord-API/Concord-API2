@@ -27,7 +27,6 @@ public class CursoDAO {
             stmt.setInt(7, curso.getCoordenadorId());
 
             stmt.executeUpdate();
-            System.out.println("Curso adicionado com sucesso!");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -50,7 +49,6 @@ public class CursoDAO {
             stmt.setInt(8, curso.getId());
 
             stmt.executeUpdate();
-            System.out.println("Curso atualizado com sucesso!");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,7 +63,6 @@ public class CursoDAO {
 
             stmt.setInt(1, id);
             stmt.executeUpdate();
-            System.out.println("Curso excluído com sucesso!");
 
         } catch (SQLException e) {
             e.printStackTrace();
