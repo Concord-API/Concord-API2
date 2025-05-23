@@ -2,33 +2,27 @@ package concord.concord.models;
 
 public class Aula {
     private int id;
-    private String diciplina;
+    private Disciplina disciplina;
     private Professor professor;
-    private Curso curso;
     private String dia;
-    private String horario;
+    private String horarioInicio;
+    private String horarioTermino;
 
-
-
-
-    public Aula(String diciplina, Professor professor,Curso curso, String dia, String horario) {
-        this.diciplina = diciplina;
+    public Aula(Disciplina disciplina, Professor professor, String dia, String horarioInicio, String horarioTermino) {
+        this.disciplina = disciplina;
         this.professor = professor;
-        this.horario = horario;
-        this.curso = curso;
+        this.horarioInicio = horarioInicio;
+        this.horarioTermino = horarioTermino;
         this.dia = dia;
     }
 
-
-    public Aula(int id, String diciplina, Professor professor,Curso curso, String dia, String horario) {
+    public Aula(int id, Disciplina disciplina, Professor professor, String dia, String horarioInicio, String horarioTermino) {
         this.id = id;
-        this.diciplina = diciplina;
+        this.disciplina = disciplina;
         this.professor = professor;
-        this.curso = curso;
         this.dia = dia;
-        this.horario = horario;
-
-
+        this.horarioInicio = horarioInicio;
+        this.horarioTermino = horarioTermino;
     }
 
     // Getters e setters
@@ -40,12 +34,12 @@ public class Aula {
         this.id = id;
     }
 
-    public String getDiciplina() {
-        return diciplina;
+    public Disciplina getDisciplina() {
+        return disciplina;
     }
 
-    public void setDiciplina(String diciplina) {
-        this.diciplina = diciplina;
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 
     public Professor getProfessor() {
@@ -56,20 +50,20 @@ public class Aula {
         this.professor = professor;
     }
 
-    public String getHorario() {
-        return horario;
+    public String getHorarioInicio() {
+        return horarioInicio;
     }
 
-    public void setHorario(String horario) {
-        this.horario = horario;
+    public void setHorarioInicio(String horarioInicio) {
+        this.horarioInicio = horarioInicio;
     }
 
-    public Curso getCurso() {
-        return curso;
+    public String getHorarioTermino() {
+        return horarioTermino;
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
+    public void setHorarioTermino(String horarioTermino) {
+        this.horarioTermino = horarioTermino;
     }
 
     public String getDia() {

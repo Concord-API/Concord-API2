@@ -6,10 +6,6 @@ public class Disciplina {
 
     public Disciplina() {}
 
-    public Disciplina(String nome) {
-        this.nome = nome;
-    }
-
     public Disciplina(int id, String nome) {
         this.id = id;
         this.nome = nome;

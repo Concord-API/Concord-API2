@@ -7,19 +7,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="concord.concord.controllers.CursoController" styleClass="dark-theme">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="dark-theme" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="concord.concord.controllers.CursoController">
     <children>
         <HBox layoutY="650.0" prefHeight="50.0" prefWidth="1280.0" styleClass="button-container">
             <children>
-                <Button fx:id="addButton" onAction="#showAddDialog" mnemonicParsing="false" prefHeight="40.0" prefWidth="426.0" text="Adicionar Curso" styleClass="primary-button">
+                <Button fx:id="addButton" mnemonicParsing="false" onAction="#showAddDialog" prefHeight="40.0" prefWidth="426.0" styleClass="primary-button" text="Adicionar Curso">
                <font>
                   <Font size="13.0" />
                </font></Button>
-                <Button fx:id="editButton" onAction="#showEditDialog" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="430.0" text="Editar Curso" styleClass="primary-button">
+                <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#showEditDialog" prefHeight="40.0" prefWidth="430.0" styleClass="primary-button" text="Editar Curso">
                <font>
                   <Font size="13.0" />
                </font></Button>
-                <Button fx:id="deleteButton" onAction="#deleteSelectedCurso" mnemonicParsing="false" prefHeight="40.0" prefWidth="426.0" text="Excluir Curso" styleClass="danger-button">
+                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteSelectedCurso" prefHeight="40.0" prefWidth="426.0" styleClass="danger-button" text="Excluir Curso">
                <font>
                   <Font size="13.0" />
                </font></Button>
@@ -27,13 +27,11 @@
         </HBox>
       <TableView fx:id="table" layoutY="0.0" prefHeight="650.0" prefWidth="1280.0" styleClass="modern-table">
         <columns>
-          <TableColumn fx:id="nomeCol" prefWidth="275.0" text="Nome" styleClass="table-column" />
-          <TableColumn fx:id="siglaCol" prefWidth="91.0" text="Sigla" styleClass="table-column" />
-            <TableColumn fx:id="duracaoCol" prefWidth="91.0" text="Duração (sem)" styleClass="table-column" />
-            <TableColumn fx:id="modalidadeCol" prefWidth="91.0" text="Modalidade" styleClass="table-column" />
-            <TableColumn fx:id="turnoCol" prefWidth="91.0" text="Turno" styleClass="table-column" />
-            <TableColumn fx:id="descricaoCol" prefWidth="275.0" text="Descrição" styleClass="table-column" />
-            <TableColumn fx:id="coordenadorCol" prefWidth="365.0" text="Coordenador" styleClass="table-column" />
+          <TableColumn fx:id="nomeCol" prefWidth="275.0" styleClass="table-column" text="Nome" />
+          <TableColumn fx:id="siglaCol" prefWidth="91.0" styleClass="table-column" text="Sigla" />
+            <TableColumn fx:id="duracaoCol" prefWidth="155.0" styleClass="table-column" text="Duração (sem)" />
+            <TableColumn fx:id="descricaoCol" prefWidth="354.0" styleClass="table-column" text="Descrição" />
+            <TableColumn fx:id="coordenadorCol" prefWidth="402.0" styleClass="table-column" text="Coordenador" />
         </columns>
       </TableView>
     </children>

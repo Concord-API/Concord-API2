@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DisciplinaDAO {
     
-    public void adicionarDisciplina(Disciplina disciplina) {
+    public void adicionar(Disciplina disciplina) {
         String sql = "INSERT INTO disciplina (nome) VALUES (?)";
         
         try (Connection conn = Database.getConnection();
@@ -23,7 +23,7 @@ public class DisciplinaDAO {
         }
     }
     
-    public void editarDisciplina(Disciplina disciplina) {
+    public void editar(Disciplina disciplina) {
         String sql = "UPDATE disciplina SET nome = ? WHERE id = ?";
         
         try (Connection conn = Database.getConnection();
@@ -38,7 +38,7 @@ public class DisciplinaDAO {
         }
     }
     
-    public void excluirDisciplina(int id) {
+    public void excluir(int id) {
         String sql = "DELETE FROM disciplina WHERE id = ?";
         
         try (Connection conn = Database.getConnection();
@@ -54,7 +54,7 @@ public class DisciplinaDAO {
     
     public List<Disciplina> buscarTodas() {
         List<Disciplina> disciplinas = new ArrayList<>();
-        String sql = "SELECT * FROM disciplina ORDER BY nome";
+        String sql = "SELECT * FROM disciplina";
         
         try (Connection conn = Database.getConnection();
              Statement stmt = conn.createStatement();

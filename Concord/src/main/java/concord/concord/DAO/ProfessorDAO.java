@@ -14,7 +14,7 @@ import concord.concord.models.Professor;
 public class ProfessorDAO {
 
     public void adicionarProfessor(Professor professor) {
-        String sql = "INSERT INTO professores (nome, email, telefone, matricula, status) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO professor (nome, email, telefone,carga_horaria, matricula, status) VALUES (?, ?,?, ?, ?, ?)";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -22,8 +22,9 @@ public class ProfessorDAO {
             stmt.setString(1, professor.getNome());
             stmt.setString(2, professor.getEmail());
             stmt.setString(3, professor.getTelefone());
-            stmt.setString(4, professor.getMatricula());
-            stmt.setInt(5, professor.getStatus());
+            stmt.setInt(4, professor.getCargaHoraria());
+            stmt.setString(5, professor.getMatricula());
+            stmt.setInt(6, professor.getStatus());
 
             stmt.executeUpdate();
 
@@ -34,7 +35,7 @@ public class ProfessorDAO {
 
 
     public void editarProfessor(Professor professor) {
-        String sql = "UPDATE professores SET nome = ?, email = ?, telefone = ?, matricula = ?, status = ? WHERE id = ?";
+        String sql = "UPDATE professor SET nome = ?, email = ?, telefone = ?,carga_horaria = ?, matricula = ?, status = ? WHERE id = ?";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -42,9 +43,10 @@ public class ProfessorDAO {
             stmt.setString(1, professor.getNome());
             stmt.setString(2, professor.getEmail());
             stmt.setString(3, professor.getTelefone());
-            stmt.setString(4, professor.getMatricula());
-            stmt.setInt(5, professor.getStatus());
-            stmt.setInt(6, professor.getId());
+            stmt.setInt(4, professor.getCargaHoraria());
+            stmt.setString(5, professor.getMatricula());
+            stmt.setInt(6, professor.getStatus());
+            stmt.setInt(7, professor.getId());
 
             stmt.executeUpdate();
 
@@ -55,7 +57,7 @@ public class ProfessorDAO {
 
 
     public void excluirProfessor(int id) {
-        String sql = "DELETE FROM professores WHERE id = ?";
+        String sql = "DELETE FROM professor WHERE id = ?";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -70,7 +72,7 @@ public class ProfessorDAO {
 
     public List<Professor> buscarProfessores() {
         List<Professor> professores = new ArrayList<>();
-        String sql = "SELECT id, nome FROM professores WHERE status = 1"; // Status = 1 (ativos)
+        String sql = "SELECT id, nome FROM professor WHERE status = 1"; // Status = 1 (ativos)
 
         try (Connection conn = Database.getConnection();
              Statement stmt = conn.createStatement();
@@ -92,7 +94,7 @@ public class ProfessorDAO {
 
     public List<Professor> buscarTodos() {
         List<Professor> professores = new ArrayList<>();
-        String sql = "SELECT * FROM professores";
+        String sql = "SELECT * FROM professor";
 
         try (Connection conn = Database.getConnection();
              Statement stmt = conn.createStatement();
@@ -104,6 +106,7 @@ public class ProfessorDAO {
                 professor.setNome(rs.getString("nome"));
                 professor.setEmail(rs.getString("email"));
                 professor.setTelefone(rs.getString("telefone"));
+                professor.setCargaHoraria(rs.getInt("carga_horaria"));
                 professor.setMatricula(rs.getString("matricula"));
                 professor.setStatus(rs.getInt("status"));
 
@@ -115,5 +118,33 @@ public class ProfessorDAO {
         }
 
         return professores;
+    }
+
+    public Professor buscarPorId(int id) {
+        String sql = "SELECT * FROM professor WHERE id = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Professor professor = new Professor();
+                professor.setId(rs.getInt("id"));
+                professor.setNome(rs.getString("nome"));
+                professor.setEmail(rs.getString("email"));
+                professor.setTelefone(rs.getString("telefone"));
+                professor.setCargaHoraria(rs.getInt("carga_horaria"));
+                professor.setMatricula(rs.getString("matricula"));
+                professor.setStatus(rs.getInt("status"));
+                return professor;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

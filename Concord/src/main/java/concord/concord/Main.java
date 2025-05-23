@@ -1,6 +1,6 @@
 package concord.concord;
 
-import concord.concord.controllers.AulaController;
+import concord.concord.controllers.TurmaAulaController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private AulaController controller;
+    private TurmaAulaController controller;
 
     public static void main(String[] args) {
         launch(args);

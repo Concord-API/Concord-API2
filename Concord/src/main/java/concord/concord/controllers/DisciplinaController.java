@@ -41,7 +41,7 @@ public class DisciplinaController {
         Optional<Disciplina> result = dialog.showAndWait();
 
         result.ifPresent(disciplina -> {
-            disciplinaDAO.adicionarDisciplina(disciplina);
+            disciplinaDAO.adicionar(disciplina);
             disciplinaList.add(disciplina);
             table.refresh();
         });
@@ -54,7 +54,7 @@ public class DisciplinaController {
             Dialog<Disciplina> dialog = createDisciplinaDialog("Editar Disciplina", selected);
             Optional<Disciplina> result = dialog.showAndWait();
             result.ifPresent(updated -> {
-                disciplinaDAO.editarDisciplina(updated);
+                disciplinaDAO.editar(updated);
                 selected.setNome(updated.getNome());
                 table.refresh();
             });
@@ -65,7 +65,7 @@ public class DisciplinaController {
     public void deleteSelectedDisciplina() {
         Disciplina selected = table.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            disciplinaDAO.excluirDisciplina(selected.getId());
+            disciplinaDAO.excluir(selected.getId());
             disciplinaList.remove(selected);
             table.refresh();
         }
@@ -107,7 +107,9 @@ public class DisciplinaController {
                     existing.setNome(nome);
                     return existing;
                 } else {
-                    return new Disciplina(nome);
+                    Disciplina novaDisciplina = new Disciplina();
+                    novaDisciplina.setNome(nome);
+                    return novaDisciplina;
                 }
             }
             return null;

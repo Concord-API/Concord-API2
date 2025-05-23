@@ -7,19 +7,23 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="concord.concord.controllers.ProfessorController" styleClass="dark-theme">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="dark-theme" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="concord.concord.controllers.ProfessorController">
     <children>
         <HBox layoutY="650.0" prefHeight="50.0" prefWidth="1280.0" styleClass="button-container">
             <children>
-                <Button fx:id="addButton" onAction="#showAddDialog" mnemonicParsing="false" prefHeight="40.0" prefWidth="426.0" text="Adicionar Professor (a)" styleClass="primary-button">
+                <Button fx:id="addButton" mnemonicParsing="false" onAction="#showAddDialog" prefHeight="40.0" prefWidth="320.0" styleClass="primary-button" text="Adicionar Professor (a)">
                <font>
                   <Font size="13.0" />
                </font></Button>
-                <Button fx:id="editButton" onAction="#showEditDialog" mnemonicParsing="false" prefHeight="40.0" prefWidth="430.0" text="Editar Professor (a)" styleClass="primary-button">
+                <Button fx:id="editButton" mnemonicParsing="false" onAction="#showEditDialog" prefHeight="40.0" prefWidth="320.0" styleClass="primary-button" text="Editar Professor (a)">
                <font>
                   <Font size="13.0" />
                </font></Button>
-                <Button fx:id="deleteButton" onAction="#deleteSelectedProfessor" mnemonicParsing="false" prefHeight="40.0" prefWidth="426.0" text="Excluir Professor (a)" styleClass="danger-button">
+                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteSelectedProfessor" prefHeight="40.0" prefWidth="320.0" styleClass="danger-button" text="Excluir Professor (a)">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
+                <Button fx:id="relacionarButton" mnemonicParsing="false" onAction="#showRelacionarDisciplinaDialog" prefHeight="40.0" prefWidth="320.0" styleClass="primary-button" text="Relacionar Disciplina">
                <font>
                   <Font size="13.0" />
                </font></Button>
@@ -27,11 +31,12 @@
         </HBox>
         <TableView fx:id="table" layoutY="0.0" prefHeight="650.0" prefWidth="1280.0" styleClass="modern-table">
          <columns>
-            <TableColumn fx:id="nomeCol" prefWidth="384.0" text="Nome" styleClass="table-column" />
-            <TableColumn fx:id="emailCol" prefWidth="384.0" text="E-mail" styleClass="table-column" />
-            <TableColumn fx:id="telefoneCol" prefWidth="256.0" text="Telefone" styleClass="table-column" />
-            <TableColumn fx:id="matriculaCol" prefWidth="128.0" text="Mátricula" styleClass="table-column" />
-            <TableColumn fx:id="statusCol" prefWidth="128.0" text="Status" styleClass="table-column" />
+            <TableColumn fx:id="nomeCol" prefWidth="315.0" styleClass="table-column" text="Nome" />
+            <TableColumn fx:id="emailCol" prefWidth="401.0" styleClass="table-column" text="E-mail" />
+            <TableColumn fx:id="telefoneCol" prefWidth="180.0" styleClass="table-column" text="Telefone" />
+             <TableColumn fx:id="cargaHorariaCol" prefWidth="113.0" styleClass="table-column" text="Carga Horária" />
+            <TableColumn fx:id="matriculaCol" prefWidth="165.0" styleClass="table-column" text="Mátricula" />
+            <TableColumn fx:id="statusCol" minWidth="0.0" prefWidth="105.0" styleClass="table-column" text="Status" />
          </columns>
       </TableView>
     </children>

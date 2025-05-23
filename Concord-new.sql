@@ -34,7 +34,7 @@
         duracao INT,
         descricao TEXT,
         coordenador_id INT,
-        FOREIGN KEY (coordenador_id) REFERENCES professores(id)
+        FOREIGN KEY (coordenador_id) REFERENCES professor(id)
     );
     
      CREATE TABLE disciplina_professor (
@@ -42,7 +42,7 @@
     professor_id INT,
     disciplina_id INT NOT NULL,
 	FOREIGN KEY (disciplina_id) REFERENCES disciplina(id),
-	FOREIGN KEY (professor_id) REFERENCES professores(id)
+	FOREIGN KEY (professor_id) REFERENCES professor(id)
     );
 
     CREATE TABLE aula (
@@ -67,6 +67,6 @@
         id INT AUTO_INCREMENT PRIMARY KEY,
         turma_id INT NOT NULL,
         aula_id INT NOT NULL,
-        FOREIGN KEY (turma_id) REFERENCES turma(id),
-        FOREIGN KEY (aula_id) REFERENCES aula(id)
+        FOREIGN KEY (turma_id) REFERENCES turma(id) ON DELETE CASCADE,
+        FOREIGN KEY (aula_id) REFERENCES aula(id) ON DELETE CASCADE
     );

@@ -5,21 +5,17 @@ public class Curso {
     private String nome;
     private String sigla;
     private int duracao;
-    private String modalidade;
-    private String turno;
     private String descricao;
     private int coordenadorId;
     private String coordenadorNome;
 
     public Curso() {}
 
-    public Curso(int id, String nome, String sigla, int duracao, String modalidade, String turno, String descricao, int coordenadorId) {
+    public Curso(int id, String nome, String sigla, int duracao, String descricao, int coordenadorId) {
         this.id = id;
         this.nome = nome;
         this.sigla = sigla;
         this.duracao = duracao;
-        this.modalidade = modalidade;
-        this.turno = turno;
         this.descricao = descricao;
         this.coordenadorId = coordenadorId;
     }
@@ -42,11 +38,6 @@ public class Curso {
     public int getDuracao() { return duracao; }
     public void setDuracao(int duracao) { this.duracao = duracao; }
 
-    public String getModalidade() { return modalidade; }
-    public void setModalidade(String modalidade) { this.modalidade = modalidade; }
-
-    public String getTurno() { return turno; }
-    public void setTurno(String turno) { this.turno = turno; }
 
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }

@@ -23,14 +23,11 @@ public class CursoController {
     private TableColumn<Curso, String> siglaCol;
     @FXML
     private TableColumn<Curso, Integer> duracaoCol;
-    @FXML
-    private TableColumn<Curso, String> modalidadeCol;
-    @FXML
-    private TableColumn<Curso, String> turnoCol;
+
     @FXML
     private TableColumn<Curso, String> descricaoCol;
     @FXML
-    private TableColumn<Curso, Integer> coordenadorCol;
+    private TableColumn<Curso, String> coordenadorCol;
 
     private final ObservableList<Curso> cursoList = FXCollections.observableArrayList();
     private final CursoDAO cursoDAO = new CursoDAO();
@@ -47,21 +44,20 @@ public class CursoController {
 
     @FXML
     public void initialize() {
+        carregarProfessores();
+
         nomeCol.setCellValueFactory(new PropertyValueFactory<>("nome"));
         siglaCol.setCellValueFactory(new PropertyValueFactory<>("sigla"));
         duracaoCol.setCellValueFactory(new PropertyValueFactory<>("duracao"));
-        modalidadeCol.setCellValueFactory(new PropertyValueFactory<>("modalidade"));
-        turnoCol.setCellValueFactory(new PropertyValueFactory<>("turno"));
         descricaoCol.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         coordenadorCol.setCellValueFactory(new PropertyValueFactory<>("coordenadorNome"));
 
-
-        carregarProfessores();
         carregarCursosDoBanco();
     }
 
     private void carregarProfessores() {
-        professores.setAll(professorDAO.buscarTodos());
+        professores.clear();
+        professores.addAll(professorDAO.buscarTodos());
     }
 
     @FXML
@@ -71,6 +67,17 @@ public class CursoController {
 
         result.ifPresent(curso -> {
             cursoDAO.adicionarCurso(curso);
+            
+            // Atualizar o nome do coordenador
+            Professor coordenador = professores.stream()
+                .filter(p -> p.getId() == curso.getCoordenadorId())
+                .findFirst()
+                .orElse(null);
+            
+            if (coordenador != null) {
+                curso.setCoordenadorNome(coordenador.getNome());
+            }
+            
             cursoList.add(curso);
             table.refresh();
         });
@@ -87,8 +94,6 @@ public class CursoController {
                 selected.setNome(updated.getNome());
                 selected.setSigla(updated.getSigla());
                 selected.setDuracao(updated.getDuracao());
-                selected.setModalidade(updated.getModalidade());
-                selected.setTurno(updated.getTurno());
                 selected.setDescricao(updated.getDescricao());
                 selected.setCoordenadorId(updated.getCoordenadorId());
 
@@ -123,6 +128,9 @@ public class CursoController {
     }
 
     private Dialog<Curso> createCursoDialog(String title, Curso existing) {
+        // Recarregar a lista de professores antes de criar o diálogo
+        carregarProfessores();
+
         Dialog<Curso> dialog = new Dialog<>();
         dialog.setTitle(title);
     
@@ -132,54 +140,76 @@ public class CursoController {
         TextField nomeField = new TextField();
         TextField siglaField = new TextField();
         TextField duracaoField = new TextField();
-        ComboBox<String> modalidadeComboBox = new ComboBox<>(FXCollections.observableArrayList("Presencial", "EAD", "Híbrido"));
-        ComboBox<String> turnoComboBox = new ComboBox<>(FXCollections.observableArrayList("Matutino", "Vespertino", "Noturno", "Integral"));
         TextArea descricaoArea = new TextArea();
         ComboBox<Professor> coordenadorComboBox = new ComboBox<>(professores);
+
+        // Configurar como o ComboBox exibe os professores
+        coordenadorComboBox.setCellFactory(lv -> new ListCell<Professor>() {
+            @Override
+            protected void updateItem(Professor item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? "" : item.getNome());
+            }
+        });
+
+        coordenadorComboBox.setButtonCell(new ListCell<Professor>() {
+            @Override
+            protected void updateItem(Professor item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? "" : item.getNome());
+            }
+        });
     
         if (existing != null) {
             nomeField.setText(existing.getNome());
             siglaField.setText(existing.getSigla());
             duracaoField.setText(String.valueOf(existing.getDuracao()));
-            modalidadeComboBox.setValue(existing.getModalidade());
-            turnoComboBox.setValue(existing.getTurno());
             descricaoArea.setText(existing.getDescricao());
-            coordenadorComboBox.setValue(professores.stream()
+            
+            Professor coordenadorAtual = professores.stream()
                 .filter(p -> p.getId() == existing.getCoordenadorId())
                 .findFirst()
-                .orElse(null));
+                .orElse(null);
+            
+            coordenadorComboBox.setValue(coordenadorAtual);
         }
     
         dialogPane.setContent(new VBox(10,
                 new Label("Nome:"), nomeField,
                 new Label("Sigla:"), siglaField,
                 new Label("Duração (semestres):"), duracaoField,
-                new Label("Modalidade:"), modalidadeComboBox,
-                new Label("Turno:"), turnoComboBox,
                 new Label("Descrição:"), descricaoArea,
-                new Label("Coordenador:"), coordenadorComboBox
+                new Label("Coordenador:*"), coordenadorComboBox
         ));
     
         dialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
                 if (nomeField.getText().isEmpty() || siglaField.getText().isEmpty() || 
-                    duracaoField.getText().isEmpty() || modalidadeComboBox.getValue() == null || 
-                    turnoComboBox.getValue() == null || coordenadorComboBox.getValue() == null) {
-                    mostrarAlerta("Erro", "Campos Obrigatórios", "Por favor, preencha todos os campos!");
+                    duracaoField.getText().isEmpty() || coordenadorComboBox.getValue() == null) {
+                    mostrarAlerta("Erro", "Campos Obrigatórios", 
+                        "Por favor, preencha todos os campos obrigatórios!\n" +
+                        "Nome, Sigla, Duração e Coordenador são obrigatórios.");
                     return null;
                 }
                 
                 try {
-                    return new Curso(
-                        existing != null ? existing.getId() : 0,
-                        nomeField.getText(),
-                        siglaField.getText(),
-                        Integer.parseInt(duracaoField.getText()),
-                        modalidadeComboBox.getValue(),
-                        turnoComboBox.getValue(),
-                        descricaoArea.getText(),
-                        coordenadorComboBox.getValue().getId()
-                    );
+                    Curso novoCurso = new Curso();
+                    novoCurso.setId(existing != null ? existing.getId() : 0);
+                    novoCurso.setNome(nomeField.getText());
+                    novoCurso.setSigla(siglaField.getText());
+                    novoCurso.setDuracao(Integer.parseInt(duracaoField.getText()));
+                    novoCurso.setDescricao(descricaoArea.getText());
+                    
+                    Professor coordenadorSelecionado = coordenadorComboBox.getValue();
+                    if (coordenadorSelecionado == null) {
+                        mostrarAlerta("Erro", "Coordenador Obrigatório", 
+                            "É necessário selecionar um coordenador para o curso.");
+                        return null;
+                    }
+                    
+                    novoCurso.setCoordenadorId(coordenadorSelecionado.getId());
+                    novoCurso.setCoordenadorNome(coordenadorSelecionado.getNome());
+                    return novoCurso;
                 } catch (NumberFormatException e) {
                     mostrarAlerta("Erro", "Duração Inválida", "A duração deve ser um número inteiro!");
                     return null;

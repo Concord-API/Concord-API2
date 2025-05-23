@@ -11,9 +11,14 @@
           <children>
               <TabPane layoutY="-42.0" prefHeight="750.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE" styleClass="modern-tab-pane">
                   <tabs>
-                      <Tab text="Aula" styleClass="modern-tab">
+                      <Tab text="Disciplina" styleClass="modern-tab">
                           <content>
-                              <fx:include source="aulaView.fxml" />
+                              <fx:include source="disciplinaView.fxml" fx:id="disciplinaView" />
+                          </content>
+                      </Tab>
+                      <Tab text="Professor" styleClass="modern-tab">
+                          <content>
+                              <fx:include source="professorView.fxml" fx:id="professorView" />
                           </content>
                       </Tab>
                       <Tab text="Curso" styleClass="modern-tab">
@@ -21,14 +26,14 @@
                               <fx:include source="cursoView.fxml" />
                           </content>
                       </Tab>
-                      <Tab text="Professor" styleClass="modern-tab">
+                      <Tab text="Turma" styleClass="modern-tab">
                           <content>
-                              <fx:include source="professorView.fxml" />
+                              <fx:include source="turmaView.fxml" fx:id="turmaView" />
                           </content>
                       </Tab>
-                      <Tab text="Disciplina" styleClass="modern-tab">
+                      <Tab text="Turma Aula" styleClass="modern-tab">
                           <content>
-                              <fx:include source="disciplinaView.fxml" />
+                              <fx:include source="turmaAulaView.fxml" fx:id="turmaAulaView" />
                           </content>
                       </Tab>
                   </tabs>
