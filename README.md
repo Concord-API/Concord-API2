@@ -6,7 +6,7 @@
 
 ## 📚 Sobre o Projeto
 
-O **Concord-API2** é um projeto voltado para a criação de um **Gerenciador de Horários de Aula**.
+O aplicativo **Concord Grid Manager** é um projeto voltado para a criação de um **Gerenciador de Horários de Aula**.
 
 ## 🎯 Objetivo
 
@@ -28,7 +28,11 @@ curso pode definir o posicionamento das aulas de forma diferente.
 
 ## 🚀 Funcionalidades Atuais
 
--  Tela do programa Gerenciador de Horários de Aula.
+-  Cadastro, edição e exclusão de disciplinas;
+-  Cadastro, edição e exclusão de professores;
+-  Cadastro, edição e exclusão cursos;
+-  Cadastro, edição e exclusão de turmas;
+-  Tela de visualização / edição das informações cadastradas;
 
 ## 🛠️ Tecnologias Utilizadas
 
