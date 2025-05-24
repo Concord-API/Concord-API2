@@ -25,7 +25,6 @@ public class Aula {
         this.horarioTermino = horarioTermino;
     }
 
-    // Getters e setters
     public int getId() {
         return id;
     }

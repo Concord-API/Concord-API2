@@ -17,7 +17,6 @@ public class TurmaAulaDAO {
     private final AulaDAO aulaDAO = new AulaDAO();
 
     public void adicionar(TurmaAula turmaAula) {
-        // Verificar se a turma e a aula existem
         Turma turma = turmaDAO.buscarPorId(turmaAula.getTurma().getId());
         Aula aula = aulaDAO.buscarPorId(turmaAula.getAula().getId());
         
@@ -25,7 +24,6 @@ public class TurmaAulaDAO {
             throw new RuntimeException("Turma ou Aula não encontrados");
         }
 
-        // Verificar se o relacionamento já existe
         if (verificarRelacionamentoExistente(turma.getId(), aula.getId())) {
             throw new RuntimeException("Esta turma já está relacionada com esta aula");
         }
@@ -80,7 +78,6 @@ public class TurmaAulaDAO {
                 int turmaAulaId = rs.getInt("ta.id");
                 int aulaId = rs.getInt("aula_id");
 
-                // Buscar a Aula completa pelo ID
                 Aula aula = aulaDAO.buscarPorId(aulaId);
 
                 if (aula != null) {
@@ -118,14 +115,12 @@ public class TurmaAulaDAO {
                 TurmaAula turmaAula = new TurmaAula();
                 turmaAula.setId(rs.getInt("id"));
                 
-                // Criar e configurar a turma
                 Turma turma = new Turma();
                 turma.setId(rs.getInt("turma_id"));
                 turma.setModalidade(rs.getString("modalidade"));
                 turma.setTurno(rs.getString("turno"));
                 turma.setPeriodo(rs.getString("periodo"));
                 
-                // Criar e configurar o curso
                 Curso curso = new Curso();
                 curso.setId(rs.getInt("curso_id"));
                 curso.setNome(rs.getString("curso_nome"));
@@ -183,23 +178,20 @@ public class TurmaAulaDAO {
                 TurmaAula turmaAula = new TurmaAula();
                 turmaAula.setId(rs.getInt("id"));
                 
-                // Criar e configurar a turma
                 Turma turma = new Turma();
                 turma.setId(rs.getInt("turma_id"));
                 turma.setModalidade(rs.getString("modalidade"));
                 turma.setTurno(rs.getString("turno"));
                 turma.setPeriodo(rs.getString("periodo"));
                 
-                // Criar e configurar o curso
                 Curso curso = new Curso();
                 curso.setId(rs.getInt("curso_id"));
                 curso.setNome(rs.getString("curso_nome"));
                 turma.setCurso(curso);
                 
-                // Criar e configurar a aula
                 Aula aula = aulaDAO.buscarPorId(rs.getInt("aula_id"));
                 if (aula == null) {
-                    continue; // Pula para o próximo registro se a aula não for encontrada
+                    continue; 
                 }
                 
                 turmaAula.setAula(aula);

@@ -48,8 +48,7 @@ public class TurmaDAO {
                 turma.setModalidade(rs.getString("modalidade"));
                 turma.setTurno(rs.getString("turno"));
                 turma.setPeriodo(rs.getString("periodo"));
-                
-                // Criar e configurar o curso
+
                 Curso curso = new Curso();
                 curso.setId(rs.getInt("curso_id"));
                 curso.setNome(rs.getString("curso_nome"));
@@ -112,7 +111,6 @@ public class TurmaDAO {
                 turma.setTurno(rs.getString("turno"));
                 turma.setPeriodo(rs.getString("periodo"));
                 
-                // Criar e configurar o curso
                 Curso curso = new Curso();
                 curso.setId(rs.getInt("curso_id"));
                 curso.setNome(rs.getString("curso_nome"));

@@ -99,7 +99,6 @@ public class TurmaController {
     }
 
     private Dialog<Turma> createTurmaDialog(String title, Turma existing) {
-        // Recarregar lista de cursos antes de criar o diálogo
         carregarCursos();
 
         Dialog<Turma> dialog = new Dialog<>();

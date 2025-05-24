@@ -14,7 +14,6 @@ public class DisciplinaProfessorDAO {
     private final ProfessorDAO professorDAO = new ProfessorDAO();
 
     public void adicionar(DisciplinaProfessor disciplinaProfessor) {
-        // Verificar se o professor e a disciplina existem
         Professor professor = professorDAO.buscarPorId(disciplinaProfessor.getProfessor().getId());
         Disciplina disciplina = disciplinaDAO.buscarPorId(disciplinaProfessor.getDisciplina().getId());
         
@@ -22,7 +21,6 @@ public class DisciplinaProfessorDAO {
             throw new RuntimeException("Professor ou Disciplina não encontrados");
         }
 
-        // Verificar se o relacionamento já existe
         if (verificarRelacionamentoExistente(professor.getId(), disciplina.getId())) {
             throw new RuntimeException("Este professor já está relacionado com esta disciplina");
         }

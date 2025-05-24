@@ -72,7 +72,7 @@ public class ProfessorDAO {
 
     public List<Professor> buscarProfessores() {
         List<Professor> professores = new ArrayList<>();
-        String sql = "SELECT id, nome FROM professor WHERE status = 1"; // Status = 1 (ativos)
+        String sql = "SELECT id, nome FROM professor WHERE status = 1";
 
         try (Connection conn = Database.getConnection();
              Statement stmt = conn.createStatement();

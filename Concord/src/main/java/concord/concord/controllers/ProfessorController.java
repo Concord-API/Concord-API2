@@ -70,7 +70,7 @@ public class ProfessorController {
         result.ifPresent(professor -> {
             try {
                 professorDAO.adicionarProfessor(professor);
-                carregarProfessoresDoBanco(); // Recarregar a lista completa
+                carregarProfessoresDoBanco(); 
                 table.refresh();
             } catch (IllegalArgumentException e) {
                 mostrarAlerta("Erro", "Erro ao Adicionar", e.getMessage());
@@ -87,7 +87,7 @@ public class ProfessorController {
             result.ifPresent(updated -> {
                 try {
                     professorDAO.editarProfessor(updated);
-                    carregarProfessoresDoBanco(); // Recarregar a lista completa
+                    carregarProfessoresDoBanco(); 
                     table.refresh();
                 } catch (IllegalArgumentException e) {
                     mostrarAlerta("Erro", "Erro ao Editar", e.getMessage());
@@ -114,15 +114,15 @@ public class ProfessorController {
             return;
         }
 
-        // Verificar se o professor ainda existe no banco
+        
         Professor professorAtual = professorDAO.buscarPorId(selected.getId());
         if (professorAtual == null) {
             mostrarAlerta("Erro", "Professor não encontrado", "O professor selecionado não existe mais no banco de dados.");
-            carregarProfessoresDoBanco(); // Atualizar a lista
+            carregarProfessoresDoBanco(); 
             return;
         }
 
-        // Recarregar lista de disciplinas
+        
         List<Disciplina> todasDisciplinas = disciplinaDAO.buscarTodas();
         if (todasDisciplinas.isEmpty()) {
             mostrarAlerta("Aviso", "Sem Disciplinas", "Não há disciplinas cadastradas no sistema. Por favor, cadastre uma disciplina primeiro.");
@@ -135,11 +135,9 @@ public class ProfessorController {
 
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        // Criar ComboBox para disciplinas
+ 
         ComboBox<Disciplina> disciplinaComboBox = new ComboBox<>(FXCollections.observableArrayList(todasDisciplinas));
         
-        // Lista de disciplinas já relacionadas
         ListView<DisciplinaProfessor> disciplinasRelacionadasList = new ListView<>();
         disciplinasRelacionadasList.setItems(FXCollections.observableArrayList(
             disciplinaProfessorDAO.buscarPorProfessor(selected.getId())
@@ -157,7 +155,6 @@ public class ProfessorController {
             }
         });
 
-        // Botão para remover disciplina
         Button removerButton = new Button("Remover Disciplina");
         removerButton.setOnAction(e -> {
             DisciplinaProfessor selectedRelacionamento = disciplinasRelacionadasList.getSelectionModel().getSelectedItem();
@@ -190,7 +187,6 @@ public class ProfessorController {
                     DisciplinaProfessor novoDisciplinaProfessor = new DisciplinaProfessor(selected, disciplinaSelecionada);
                     disciplinaProfessorDAO.adicionar(novoDisciplinaProfessor);
                     
-                    // Atualizar a lista de disciplinas relacionadas
                     disciplinasRelacionadasList.getItems().setAll(
                         disciplinaProfessorDAO.buscarPorProfessor(selected.getId())
                     );

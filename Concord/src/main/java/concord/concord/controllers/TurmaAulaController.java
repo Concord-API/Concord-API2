@@ -95,7 +95,6 @@ public class TurmaAulaController {
     @FXML
     public void initialize() {
         instance = this;
-        // Configurar a lista de turmas
         ObservableList<Turma> turmas = FXCollections.observableArrayList(turmaDAO.buscarTodas());
         turmasListView.setItems(turmas);
         turmasListView.setCellFactory(lv -> new ListCell<Turma>() {
@@ -114,7 +113,6 @@ public class TurmaAulaController {
         });
         
         
-        // Configurar a tabela de disciplinas
         disciplinaCol.setCellValueFactory(cellData -> 
             new javafx.beans.property.SimpleStringProperty(
                 cellData.getValue().getDisciplina().getNome()
@@ -142,11 +140,9 @@ public class TurmaAulaController {
         
         disciplinasTableView.setItems(aulasList);
         
-        // Configurar o ComboBox de filtro de dia
         diaFilterComboBox.setItems(diasDaSemana);
-        diaFilterComboBox.getSelectionModel().selectFirst(); // Selecionar "Todos" por padrão
+        diaFilterComboBox.getSelectionModel().selectFirst();
         
-        // Adicionar listener para seleção de turma
         turmasListView.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> {
                 if (newValue != null) {
@@ -157,7 +153,6 @@ public class TurmaAulaController {
             }
         );
         
-        // Adicionar listener para seleção de dia no filtro
         diaFilterComboBox.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> {
                 if (todasAulasDaTurma != null) {
@@ -166,20 +161,16 @@ public class TurmaAulaController {
             }
         );
 
-        // Desabilitar botões de ação de aula inicialmente
         setAulaActionButtonsDisabled(true);
 
-        // Adicionar listener para habilitar botões de ação de aula quando uma turma for selecionada
         turmasListView.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> {
                 setAulaActionButtonsDisabled(newValue == null);
             }
         );
 
-        // Carregar os dados iniciais da primeira turma, se houver
         if (!turmas.isEmpty()) {
             turmasListView.getSelectionModel().selectFirst();
-            // atualizarDetalhesTurma é chamado pelo listener de seleção
         }
         carregarDisciplinas();
         carregarProfessores();
@@ -199,19 +190,16 @@ public class TurmaAulaController {
     }
     
     private void atualizarDetalhesTurma(Turma turma) {
-        // Atualizar informações da turma
         modalidadeLabel.setText(turma.getModalidade());
         turnoLabel.setText(turma.getTurno());
         periodoLabel.setText(turma.getPeriodo());
         cursoLabel.setText(turma.getCurso().getNome());
 
-        // Carregar todas as aulas da turma
         List<TurmaAula> relacionamentos = turmaAulaDAO.buscarPorTurma(turma.getId());
         todasAulasDaTurma = relacionamentos.stream()
                 .map(TurmaAula::getAula)
                 .collect(Collectors.toList());
 
-        // Aplicar filtro de dia atual
         filtrarAulasPorDia(diaFilterComboBox.getSelectionModel().getSelectedItem());
     }
     
@@ -237,10 +225,8 @@ public class TurmaAulaController {
                 aulasList.addAll(aulasFiltradas);
             }
         }
-        disciplinasTableView.refresh(); // Força o TableView a redesenhar com a lista atualizada
+        disciplinasTableView.refresh();
     }
-
-    // Lógica de Adicionar, Editar e Excluir Aula (adaptada do AulaController)
 
     private void carregarProfessores() {
         professores.setAll(professorDAO.buscarTodos());
@@ -259,7 +245,6 @@ public class TurmaAulaController {
         int horaTermino = Integer.parseInt(termino[0]);
         int minutoTermino = Integer.parseInt(termino[1]);
 
-        // Converter para minutos para facilitar a comparação
         int totalMinutosInicio = horaInicio * 60 + minutoInicio;
         int totalMinutosTermino = horaTermino * 60 + minutoTermino;
 
@@ -275,22 +260,18 @@ public class TurmaAulaController {
         int horaTermino = Integer.parseInt(termino[0]);
         int minutoTermino = Integer.parseInt(termino[1]);
 
-        // Converter para minutos
         int totalMinutosInicio = horaInicio * 60 + minutoInicio;
         int totalMinutosTermino = horaTermino * 60 + minutoTermino;
 
-        // Calcular diferença em horas
         return (totalMinutosTermino - totalMinutosInicio) / 60.0;
     }
 
     private double calcularCargaHorariaDiaria(Professor professor, String dia, int idAulaAtual) {
         double cargaHorariaTotal = 0;
-        // Aqui precisamos buscar as aulas DO PROFESSOR, não da turma atual
-        // Reutilizar o método do AulaDAO
         List<Aula> aulasDoProfessor = aulaDAO.buscarAulasPorProfessorEDia(professor.getId(), dia);
 
         for (Aula aula : aulasDoProfessor) {
-            if (aula.getId() != idAulaAtual) { // Não contar a aula atual (em caso de edição)
+            if (aula.getId() != idAulaAtual) { 
                 double horasAula = calcularHorasAula(aula.getHorarioInicio(), aula.getHorarioTermino());
                 cargaHorariaTotal += horasAula;
             }
@@ -307,7 +288,6 @@ public class TurmaAulaController {
     }
 
     private boolean validarAula(Aula aula, int idAtual) {
-         // Verificar conflito de horário para o professor em qualquer turma
         return !aulaDAO.existeConflitoDeHorario(aula.getProfessor(), aula.getDia(), aula.getHorarioInicio(), idAtual);
     }
 
@@ -318,12 +298,11 @@ public class TurmaAulaController {
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         ComboBox<Disciplina> disciplinaComboBox = new ComboBox<>(disciplinas);
-        ComboBox<Professor> professorComboBox = new ComboBox<>(); // Popula dinamicamente
-        ComboBox<String> diaComboBox = new ComboBox<>(diasDaSemana.filtered(dia -> !dia.equals("Todos"))); // Exclui "Todos"
+        ComboBox<Professor> professorComboBox = new ComboBox<>(); 
+        ComboBox<String> diaComboBox = new ComboBox<>(diasDaSemana.filtered(dia -> !dia.equals("Todos"))); 
         ComboBox<String> horarioInicioComboBox = new ComboBox<>(horariosPossiveis);
         ComboBox<String> horarioTerminoComboBox = new ComboBox<>(horariosPossiveis);
 
-        // Configurar como os ComboBoxes exibem os itens
         disciplinaComboBox.setCellFactory(lv -> new ListCell<Disciplina>() {
             @Override
             protected void updateItem(Disciplina item, boolean empty) {
@@ -346,7 +325,7 @@ public class TurmaAulaController {
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(item.getNome()); // Mostrar apenas o nome no diálogo
+                    setText(item.getNome()); 
                 }
             }
         });
@@ -358,12 +337,11 @@ public class TurmaAulaController {
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(item.getNome()); // Mostrar apenas o nome no diálogo
+                    setText(item.getNome()); 
                 }
             }
         });
 
-        // Listener para carregar professores ao selecionar disciplina
         disciplinaComboBox.setOnAction(e -> {
             Disciplina disciplinaSelecionada = disciplinaComboBox.getValue();
             if (disciplinaSelecionada != null) {
@@ -376,13 +354,11 @@ public class TurmaAulaController {
             } else {
                 professorComboBox.setItems(FXCollections.observableArrayList());
             }
-            professorComboBox.setValue(null); // Limpar seleção de professor
+            professorComboBox.setValue(null); 
         });
 
-        // Preencher diálogo com dados existentes para edição
         if (existing != null) {
             disciplinaComboBox.setValue(existing.getDisciplina());
-            // Disparar o listener da disciplina para carregar os professores corretos
             disciplinaComboBox.fireEvent(new javafx.event.ActionEvent());
             professorComboBox.setValue(existing.getProfessor());
             diaComboBox.setValue(existing.getDia());
@@ -442,21 +418,18 @@ public class TurmaAulaController {
         Optional<Aula> result = dialog.showAndWait();
 
         result.ifPresent(novaAula -> {
-            // Validar horários
             if (!validarHorarios(novaAula.getHorarioInicio(), novaAula.getHorarioTermino())) {
                 mostrarAlerta("Erro", "Horários Inválidos",
                         "O horário de término deve ser posterior ao horário de início!");
                 return;
             }
 
-            // Validar conflito de horário na mesma turma
             if (existeConflitoHorarioNaTurma(turmaSelecionada, novaAula)) {
                 mostrarAlerta("Erro", "Conflito de Horário",
                         "Já existe uma aula neste horário para esta turma!");
                 return;
             }
 
-            // Validar carga horária do professor
             if (!validarCargaHoraria(novaAula.getProfessor(), novaAula.getDia(), novaAula.getHorarioInicio(), novaAula.getHorarioTermino(), 0)) {
                  mostrarAlerta("Erro", "Carga Horária Excedida",
                         String.format("Adicionar esta aula (%s - %s) excederia a carga horária diária do professor %s!",
@@ -464,7 +437,6 @@ public class TurmaAulaController {
                 return;
             }
 
-            // Validar conflito de horário para o professor (em qualquer turma)
              if (!validarAula(novaAula, 0)) {
                  mostrarAlerta("Erro", "Conflito de Horário",
                         String.format("O professor %s já tem uma aula neste horário e dia (%s - %s)!",
@@ -473,19 +445,15 @@ public class TurmaAulaController {
              }
 
             try {
-                // Adicionar a Aula ao banco de dados e obter o ID gerado
                 int novaAulaId = aulaDAO.adicionarAula(novaAula);
 
-                // Criar um objeto Aula com o ID retornado para o relacionamento
                 Aula aulaComId = new Aula(novaAulaId, novaAula.getDisciplina(), novaAula.getProfessor(), novaAula.getDia(), novaAula.getHorarioInicio(), novaAula.getHorarioTermino());
 
-                // Criar e adicionar o relacionamento Turma-Aula usando a aula com ID
                 TurmaAula turmaAula = new TurmaAula(turmaSelecionada, aulaComId);
                 turmaAulaDAO.adicionar(turmaAula);
 
-                // Atualizar a view
                 atualizarDetalhesTurma(turmaSelecionada);
-                atualizarListaTurmas(); // Atualizar a lista de turmas
+                atualizarListaTurmas(); 
 
             } catch (RuntimeException e) {
                 mostrarAlerta("Erro", "Erro ao Adicionar Aula", e.getMessage());
@@ -499,13 +467,11 @@ public class TurmaAulaController {
         for (TurmaAula ta : aulasDaTurma) {
             Aula aula = ta.getAula();
             if (aula.getDia().equals(novaAula.getDia())) {
-                // Converter horários para minutos para facilitar a comparação
                 int inicioNova = converterHorarioParaMinutos(novaAula.getHorarioInicio());
                 int terminoNova = converterHorarioParaMinutos(novaAula.getHorarioTermino());
                 int inicioExistente = converterHorarioParaMinutos(aula.getHorarioInicio());
                 int terminoExistente = converterHorarioParaMinutos(aula.getHorarioTermino());
 
-                // Verificar sobreposição de horários
                 if ((inicioNova >= inicioExistente && inicioNova < terminoExistente) ||
                     (terminoNova > inicioExistente && terminoNova <= terminoExistente) ||
                     (inicioNova <= inicioExistente && terminoNova >= terminoExistente)) {
@@ -533,7 +499,6 @@ public class TurmaAulaController {
         }
 
          if (turmaSelecionada == null) {
-             // Isso não deve acontecer se uma aula está selecionada, mas por segurança
              mostrarAlerta("Aviso", "Seleção Necessária", "Por favor, selecione uma turma na lista.");
              return;
          }
@@ -542,14 +507,12 @@ public class TurmaAulaController {
         Optional<Aula> result = dialog.showAndWait();
 
         result.ifPresent(aulaAtualizada -> {
-            // Validar horários
             if (!validarHorarios(aulaAtualizada.getHorarioInicio(), aulaAtualizada.getHorarioTermino())) {
                 mostrarAlerta("Erro", "Horários Inválidos",
                         "O horário de término deve ser posterior ao horário de início!");
                 return;
             }
 
-             // Validar carga horária do professor (excluindo a aula atual da contagem)
             if (!validarCargaHoraria(aulaAtualizada.getProfessor(), aulaAtualizada.getDia(), aulaAtualizada.getHorarioInicio(), aulaAtualizada.getHorarioTermino(), aulaSelecionada.getId())) {
                  mostrarAlerta("Erro", "Carga Horária Excedida",
                         String.format("A edição desta aula (%s - %s) excederia a carga horária diária do professor %s!",
@@ -557,7 +520,6 @@ public class TurmaAulaController {
                 return;
             }
 
-             // Validar conflito de horário para o professor (excluindo a aula atual)
              if (!validarAula(aulaAtualizada, aulaSelecionada.getId())) {
                  mostrarAlerta("Erro", "Conflito de Horário",
                         String.format("O professor %s já tem uma aula neste horário e dia (%s - %s)!",
@@ -567,7 +529,6 @@ public class TurmaAulaController {
 
             try {
                 aulaDAO.editarAula(aulaSelecionada.getId(), aulaAtualizada);
-                // Atualizar a view
                 atualizarDetalhesTurma(turmaSelecionada);
             } catch (RuntimeException e) {
                  mostrarAlerta("Erro", "Erro ao Editar Aula", e.getMessage());
@@ -585,7 +546,6 @@ public class TurmaAulaController {
         }
 
         if (turmaSelecionada == null) {
-            // Isso não deve acontecer se uma aula está selecionada, mas por segurança
             mostrarAlerta("Aviso", "Seleção Necessária", "Por favor, selecione uma turma na lista.");
             return;
         }
@@ -599,10 +559,7 @@ public class TurmaAulaController {
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                // Excluir a Aula do banco de dados. Isso deve remover os relacionamentos Turma-Aula via CASCADE DELETE se configurado no DB.
-                // Se não houver CASCADE DELETE, seria necessário remover explicitamente os relacionamentos aqui.
                 aulaDAO.deletarAula(aulaSelecionada.getId());
-                // Atualizar a view
                 atualizarDetalhesTurma(turmaSelecionada);
             } catch (RuntimeException e) {
                 mostrarAlerta("Erro", "Erro ao Excluir Aula", e.getMessage());

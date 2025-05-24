@@ -68,7 +68,6 @@ public class CursoController {
         result.ifPresent(curso -> {
             cursoDAO.adicionarCurso(curso);
             
-            // Atualizar o nome do coordenador
             Professor coordenador = professores.stream()
                 .filter(p -> p.getId() == curso.getCoordenadorId())
                 .findFirst()
@@ -128,7 +127,7 @@ public class CursoController {
     }
 
     private Dialog<Curso> createCursoDialog(String title, Curso existing) {
-        // Recarregar a lista de professores antes de criar o diálogo
+        
         carregarProfessores();
 
         Dialog<Curso> dialog = new Dialog<>();
@@ -143,7 +142,6 @@ public class CursoController {
         TextArea descricaoArea = new TextArea();
         ComboBox<Professor> coordenadorComboBox = new ComboBox<>(professores);
 
-        // Configurar como o ComboBox exibe os professores
         coordenadorComboBox.setCellFactory(lv -> new ListCell<Professor>() {
             @Override
             protected void updateItem(Professor item, boolean empty) {
